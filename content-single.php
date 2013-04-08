@@ -1,6 +1,6 @@
 <?php
 /*
- * The template for displaying content on the search page.
+ * Single post metadata and sharing
  *
  * @package DW Focus
  * @since DW Focus 1.0
@@ -27,7 +27,24 @@
 		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'dw_focus' ), 'after' => '</div>' ) ); ?>
 	</div><!-- .entry-content -->
 
-	<?php dw_focus_post_actions(); ?>
+	<!-- Turn this off, since apparently it's fake-->
+	<!-- <?php dw_focus_post_actions(); ?> -->
+
+	<!-- Manually put tags in -->	
+	<div class="entry-action">
+	
+	<?php
+		$tags_list = get_the_tag_list( '', __( ', ', 'dw_focus' ) );
+		if ( $tags_list ) :
+	?>
+	    	<div class="tag-action">
+		    	<span class="title-action"><?php _e('Tags','dw_focus') ?></span>
+		        <span class="tags-links">
+		            <?php printf( __( '%1$s', 'dw_focus' ), $tags_list ); ?>
+		        </span>
+	        </div>
+	        <?php endif; // End if $tags_list ?>
+	</div>
 
 	<footer class="entry-meta entry-meta-bottom">
 		<?php if ( get_the_author_meta( 'description' ) ) : ?>
