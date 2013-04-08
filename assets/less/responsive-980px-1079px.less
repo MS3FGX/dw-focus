@@ -1,0 +1,19 @@
+//
+// Responsive: Regular desktop
+// --------------------------------------------------
+
+
+@media (min-width: 980px) and (max-width: 1079px) {
+
+  // Fixed grid
+  #grid > .core(@gridColumnWidth980, @gridGutterWidth980);
+
+  // Fluid grid
+  #grid > .fluid(@fluidGridColumnWidth980, @fluidGridGutterWidth980);
+
+  // Input grid
+  #grid > .input(@gridColumnWidth980, @gridGutterWidth980);
+
+  // No need to reset .thumbnails here since it's the same @gridGutterWidth
+
+}

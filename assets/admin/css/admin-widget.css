@@ -1,0 +1,92 @@
+.hide{
+    display: none;
+}
+
+.dw_focus_category_checklist{
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 100px;
+    overflow-y: scroll;
+    border: 1px solid #dfdfdf;
+
+}
+
+.dw_focus_category_checklist input[type="radio"]{
+    visibility: hidden;
+}
+
+.dw_focus_category_checklist li label{
+    width: 100%;
+    display: inline-block;
+}
+.dw_focus_category_checklist li label.active {
+    background-color: #eee;
+}
+
+.dw_focus_category_checklist li label:hover{
+    background-color: #eee;
+}
+
+.dw-focus-widget-extends{
+    min-height: 100px;
+    background-color: #fcfcfc;
+}
+
+.dw-focus-widget-extends .widget-placeholder,
+.dw-focus-widget-extends .widget,
+.dw-focus-widget-extends .sidebar-description{
+    width: 100%;
+}
+
+.poll-choices p{
+    position: relative;
+}
+
+.poll-choices p .remove-link{
+    position: absolute;
+    top:0;
+    right: 0;
+    margin: 3px;
+}
+
+.poll-choices p .remove-link a{
+    text-decoration: none;
+    color: #dfdfdf;
+    background: #fcfcfc;
+    border-radius: 2px;
+}
+
+.poll-choices p:hover .remove-link a{
+    color : #222;
+    background: #f5f5f5;
+}
+
+.category-pseudo-select{
+    cursor: pointer;
+    color: #000;
+    display: inline-block;
+    line-height: 15px;
+    width: 100%;
+    padding: 2px 0;
+    position: relative;
+    border-color: #dfdfdf;
+    background: #f9f9f9;
+}
+
+.category-pseudo-select::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 6px solid #333;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    position: absolute;
+    right: 0.5em;
+    top: 8px;
+}
+
+.categories-checklist{
+    display: none;
+    width: 80%;
+}
