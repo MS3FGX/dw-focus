@@ -32,7 +32,10 @@
 
 	<!-- Manually put tags in -->	
 	<div class="entry-action">
-	
+
+	<!-- Show author name/avatar -->
+	<span class="author-name"><?php echo get_avatar(get_the_author_email(), '16'); ?>  <?php the_author(); ?></span>
+
 	<?php
 		$tags_list = get_the_tag_list( '', __( ', ', 'dw_focus' ) );
 		if ( $tags_list ) :
