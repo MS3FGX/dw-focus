@@ -12,7 +12,8 @@
 		<h1 class="entry-title"><?php the_title(); ?></h1>
 		
 		<div class="entry-meta">
-			<?php dw_focus_posted_on(); ?>
+			<?php dw_focus_get_category(); ?>
+			<br>
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 
@@ -35,6 +36,14 @@
 
 	<!-- Show author name/avatar -->
 	<span class="author-name"><?php echo get_avatar(get_the_author_email(), '16'); ?>  <?php the_author(); ?></span>
+	<br>
+	<!-- Show date -->
+	<?php
+		$metadata = wp_get_attachment_metadata();
+		printf( __( '<span class="entry-date"><time class="entry-date" datetime="%1$s" pubdate>%2$s</time></span>', 'dw_focus' ),
+			esc_attr( get_the_date( 'c' ) ), esc_html( get_the_date() ));
+	?>
+
 
 	<?php
 		$tags_list = get_the_tag_list( '', __( ', ', 'dw_focus' ) );
