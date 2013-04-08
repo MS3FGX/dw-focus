@@ -120,13 +120,8 @@ function dw_focus_comment( $comment, $args, $depth ) {
 endif; // ends check for dw_focus_comment()
 
 if ( ! function_exists( 'dw_focus_posted_on' ) ) :
-/**
- * Prints HTML with meta information for the current post-date/time and author.
- *
- * @since DW Focus 1.0
- */
+// Return date of post
 function dw_focus_posted_on() {
-	the_category();
 	printf( __( '<time class="entry-date" datetime="%3$s" pubdate>%4$s</time>', 'dw_focus' ),
 		esc_url( get_permalink() ),
 		esc_attr( get_the_time() ),
@@ -134,6 +129,11 @@ function dw_focus_posted_on() {
 		dw_focus_time_stamp( get_the_date('c') )
 	);
 }
+endif;
+
+if ( ! function_exists( 'dw_focus_get_category' ) ) :
+// Show big category buttons
+function dw_focus_get_category() {the_category();}
 endif;
 
 /**
