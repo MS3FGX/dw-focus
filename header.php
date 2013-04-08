@@ -79,18 +79,25 @@
 							$twitter = ot_get_option('dw_twitter');
 							$gplus = ot_get_option('dw_gplus');
 						?>
-						<ul class="social-links visible-desktop">
-							<?php if( $facebook ) { ?>
-							<li class="facebook"><a target="_blank" href="<?php echo $facebook; ?>" title="<?php _e('Facebook','dw-focus') ?>"><i class="icon-facebook"></i></a></li>
-							<?php } ?>
-							<?php if( $twitter ) { ?>
-							<li class="twitter"><a target="_blank" href="<?php echo $twitter;  ?>" title="<?php _e('Twitter','dw-focus') ?>"><i class="icon-twitter"></i></a></li>
-							<?php } ?>
-							<li class="rss"><a href="<?php bloginfo('rss2_url'); ?>" title="<?php _e('Rss','dw-focus') ?>"><i class="icon-rss"></i></a></li>
+<!-- Social hover -->
+<ul class="social-links visible-desktop">
+<?php if( $facebook ) { ?>
+<li class="facebook"><a target="_blank" href="<?php echo $facebook; ?>" title="<?php _e('Facebook','dw-focus') ?>"><i class="icon-facebook"></i></a></li>
+<?php } ?>
 
-							<li class="login"><a href="<?php echo wp_login_url( get_permalink() ); ?>" title="<?php _e('Login','dw-focus') ?>"><i class="icon-user"></i></a>
-						</ul><!-- End social links -->
+<?php if( $gplus ) { ?>
+<li class="gplus"><a target="_blank" href="<?php echo $gplus; ?>" title="<?php _e('Google Plus','dw-focus') ?>"><i class="icon-google-plus"></i></a></li>
+<?php } ?>
 
+<?php if( $twitter ) { ?>
+<li class="twitter"><a target="_blank" href="<?php echo $twitter;  ?>" title="<?php _e('Twitter','dw-focus') ?>"><i class="icon-twitter"></i></a></li>
+<?php } ?>
+
+<li class="rss"><a href="<?php bloginfo('rss2_url'); ?>" title="<?php _e('RSS','dw-focus') ?>"><i class="icon-rss"></i></a></li>
+
+<!-- <li class="login"><a href="<?php echo wp_login_url( get_permalink() ); ?>" title="<?php _e('Login','dw-focus') ?>"><i class="icon-user"></i></a> -->
+</ul>
+<!-- End social hover -->
 						<div class="search-collapse collapse">
 							<?php get_search_form( $echo = true ); ?>
 						</div>
