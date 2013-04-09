@@ -71,7 +71,7 @@
 							<i class="icon-search"></i>
 						</button>
 
-						<a class="small-logo hidden-desktop" rel="home" title="DW Focus" href="<?php echo esc_url( home_url( '/' ) ); ?>">DW Focus</a>
+						<a class="small-logo hidden-desktop" rel="home" title="The Powerbase" href="<?php echo esc_url( home_url( '/' ) ); ?>">The Powerbase</a>
 
 						<?php  
 							// Social links
