@@ -28,35 +28,8 @@
 		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'dw_focus' ), 'after' => '</div>' ) ); ?>
 	</div><!-- .entry-content -->
 
-	<!-- Turn this off, since apparently it's fake-->
-	<!-- <?php dw_focus_post_actions(); ?> -->
-
-	<!-- Manually put tags in -->	
-	<div class="entry-action">
-
-	<!-- Show author name/avatar -->
-	<span class="author-name"><?php echo get_avatar(get_the_author_email(), '16'); ?>  <?php the_author(); ?></span>
-	<br>
-	<!-- Show date -->
-	<?php
-		$metadata = wp_get_attachment_metadata();
-		printf( __( '<span class="entry-date"><time class="entry-date" datetime="%1$s" pubdate>%2$s</time></span>', 'dw_focus' ),
-			esc_attr( get_the_date( 'c' ) ), esc_html( get_the_date() ));
-	?>
-
-
-	<?php
-		$tags_list = get_the_tag_list( '', __( ', ', 'dw_focus' ) );
-		if ( $tags_list ) :
-	?>
-	    	<div class="tag-action">
-		    	<span class="title-action"><?php _e('Tags','dw_focus') ?></span>
-		        <span class="tags-links">
-		            <?php printf( __( '%1$s', 'dw_focus' ), $tags_list ); ?>
-		        </span>
-	        </div>
-	        <?php endif; // End if $tags_list ?>
-	</div>
+	<!-- Load in author info, tags, and sharing sidebar -->
+	<?php dw_focus_post_actions(); ?> 
 
 	<footer class="entry-meta entry-meta-bottom">
 		<?php if ( get_the_author_meta( 'description' ) ) : ?>
