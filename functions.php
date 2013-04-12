@@ -411,7 +411,7 @@ if( ! function_exists('dw_focus_post_actions') ) :
 	?>
 		<div class="entry-action">
 		<!-- Show author name/avatar -->
-		<span class="author-name"><?php echo get_avatar(get_the_author_email(), '16'); ?>  <?php the_author(); ?></span>
+		<span class="author-name"><?php echo get_avatar(get_the_author_email(), '24'); ?>  <?php the_author(); ?></span>
 		<br>
 		<!-- Show date -->
 		<?php
