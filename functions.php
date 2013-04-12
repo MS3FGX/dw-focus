@@ -399,15 +399,14 @@ if( ! function_exists('dw_breadcrumb') ) {
 	}
 }
 
+/** Show author info, tags, and share options **/
 if( ! function_exists('dw_focus_post_actions') ) :
-	/**
-	 * Display Social Share, Print, Sent Button
-	 */
 	function dw_focus_post_actions() {
 
         $post_id = get_the_ID(); 
-        $url = rawurlencode( get_permalink() );
+        $url = rawurlencode(get_permalink());
         $title = rawurlencode(get_the_title());
+	$excerpt = get_the_excerpt();
 
 	?>
 		<div class="entry-action">
@@ -441,8 +440,8 @@ if( ! function_exists('dw_focus_post_actions') ) :
 					<li id="twitter-share" class="twitter" data-post-id="<?php echo $post_id ?>" data-nonce="<?php echo wp_create_nonce( '_dw_focus_single_tweet_count_nonce' ); ?>"><i class="icon-twitter"></i><a href="https://twitter.com/intent/tweet?url=<?php echo $url; ?>&amp;text=<?php echo $title; ?>"><?php _e('Twitter','dw_focus') ?></a></li>
 					<li class="facebook"><i class="icon-facebook-sign"></i><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url; ?>&amp;t=<?php echo $title; ?>" ><?php _e('Facebook','dw_focus') ?></a></li>
 					<li class="google"><i class="icon-google-plus-sign"></i><a href="https://plus.google.com/share?url=<?php echo $url; ?>" ><?php _e('Google +','dw_focus') ?></a></li>
-					<li class="linkedin"><i class="icon-linkedin-sign"></i><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $url ?>&amp;title=<?php echo $title ?>&amp;summary=<?php echo rawurlencode( get_the_excerpt() ); ?>"><?php _e('Linkedin','dw_focus') ?></a></li>
-					<li class="email"><i class="icon-envelope-alt"></i><a href="mailto:?Subject=<?php echo $title; ?>"><?php _e('Email this article', 'dw_focus' ); ?></a></li>
+					<li class="linkedin"><i class="icon-linkedin-sign"></i><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $url ?>&amp;title=<?php echo $title ?>&amp;summary=<?php echo $excerpt ?>"><?php _e('Linkedin','dw_focus') ?></a></li>
+					<li class="email"><i class="icon-envelope-alt"></i><a href="mailto:?Subject=<?php echo $title; ?>&body=<?php echo $excerpt ?>%0A%0A<?php echo $url; ?>"><?php _e('Email this article', 'dw_focus' ); ?></a></li>
 
                     <?php if( ! is_handheld() ) { ?>
 					<li class="print"><i class="icon-print"></i><a href="javascript:window.print();"><?php _e('Print this article','dw_focus'); ?></a></li>
