@@ -33,7 +33,7 @@
 		                </h1>
 		            </div>
 		            <?php if( is_active_sidebar( 'dw_focus_header' ) ) { ?>
-		            <div id="sidebar-header" class="span9">
+		            <div id="sidebar-header" class="span7">
 		            	<div class="row">
 		            		<?php dynamic_sidebar('dw_focus_header'); ?>
 		            	</div>
