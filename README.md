@@ -12,9 +12,10 @@ Modifications
 
 Current theme modifications include:
 
+* Widen site layout on desktop browsers
 * Add author name and picture to each post
-* Remove non-functional Social counters
-* Add Google+ to hover-over social icons
+* Enlarge header logo area
+* General UI tweaks and modifications
 
 License
 ==============
