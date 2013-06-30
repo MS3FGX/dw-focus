@@ -68,5 +68,8 @@ margin: 2px;
 background-image: none;
 }
 
+/* Author avatar */
+.author-name { position:relative;} 
+
 /* End custom CSS */
 }

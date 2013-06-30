@@ -414,9 +414,32 @@ if( ! function_exists('dw_focus_post_actions') ) :
 
         
 
-    ?>
+    ?>		
 		<div class="entry-action">
-			<div class="social-action" data-nonce="<?php echo wp_create_nonce( '_dw_sharing_count_nonce' ) ?>">
+		<!-- Show author name/avatar -->
+		<span class="author-name"><?php echo get_avatar(get_the_author_email(), '24'); ?>  <?php the_author(); ?></span>
+		<br>
+		<!-- Show date -->
+		<?php
+			$metadata = wp_get_attachment_metadata();
+			printf( __( '<span class="entry-date"><time class="entry-date" datetime="%1$s" pubdate>%2$s</time></span>', 'dw_focus' ),
+				esc_attr( get_the_date( 'c' ) ), esc_html( get_the_date() ));
+		?>
+
+		<?php
+	            $tags_list = get_the_tag_list( '', __( ', ', 'dw_focus' ) );
+	            if ( $tags_list ) :
+	        ?>
+	    	<div class="tag-action">
+		    	<span class="title-action"><?php _e('Tags','dw_focus') ?></span>
+		        <span class="tags-links">
+		            <?php printf( __( '%1$s', 'dw_focus' ), $tags_list ); ?>
+		        </span>
+	        </div>
+	        <?php endif; // End if $tags_list ?>
+		
+		<br>
+		<div class="social-action" data-nonce="<?php echo wp_create_nonce( '_dw_sharing_count_nonce' ) ?>">
 				<span class="title-action"><?php _e('Sharing','dw_focus') ?></span>
 				<ul>
 					<li id="twitter-share" class="twitter" data-post-id="<?php echo $post_id ?>" data-nonce="<?php echo wp_create_nonce( '_dw_focus_single_tweet_count_nonce' ); ?>"><i class="icon-twitter"></i><a href="https://twitter.com/intent/tweet?url=<?php echo $url; ?>&amp;text=<?php echo $title; ?>"><?php _e('Twitter','dw_focus') ?></a><span class="digit digit-twitter"><?php echo $twitter_count; ?></span></li>
@@ -429,24 +452,9 @@ if( ! function_exists('dw_focus_post_actions') ) :
                     <?php } ?>
 				</ul>
 			</div>
-
-
-			<?php
-	            /* translators: used between list items, there is a space after the comma */
-	            $tags_list = get_the_tag_list( '', __( ', ', 'dw_focus' ) );
-	            if ( $tags_list ) :
-	        ?>
-	    	<div class="tag-action">
-		    	<span class="title-action"><?php _e('Tags','dw_focus') ?></span>
-		        <span class="tags-links">
-		            <?php printf( __( '%1$s', 'dw_focus' ), $tags_list ); ?>
-		        </span>
-	        </div>
-	        <?php endif; // End if $tags_list ?>
 		</div>
 	<?php }
 endif;
-
 
 
 if( ! function_exists('dw_focus_post_format_icons') ) :
