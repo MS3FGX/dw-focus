@@ -8,11 +8,6 @@
 
 get_header(); ?>
     <div id="primary" class="site-content span9">
-        <div class="content-bar row-fluid">
-            <h1 class="page-title">
-                <?php _e( 'You Are In: <span>Blog</span>', 'dw-focus' ); ?>
-            </h1>
-        </div>
         <?php 
             $no_results = '';
             if( ! have_posts() ) {
@@ -26,7 +21,7 @@ get_header(); ?>
             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
             $query = 'offset=0&paged='.$paged;
 
-            $cat_option = ot_get_option('dw_blog_cat');
+            $cat_option = dw_get_option('dw_blog_cat');
 
             if( $cat_option && term_exists( (int) $cat_option, 'category' ) ) {
                 $query .= '&cat='.$cat_option;
@@ -37,7 +32,7 @@ get_header(); ?>
                 }
             }
 
-            $number_posts = ot_get_option('dw_blog_number_posts');
+            $number_posts = dw_get_option('dw_blog_number_posts');
             if( $number_posts ) {
                 $query .= '&posts_per_page='.$number_posts;
             }
@@ -55,7 +50,7 @@ get_header(); ?>
         <?php endif; ?>
         </div>
         <?php 
-            dw_focus_pagenavi($blogs, ot_get_option('dw_blog_navigation', 'number') );
+            dw_focus_pagenavi($blogs, dw_get_option('dw_blog_navigation', 'number') );
         ?>
     </div>
 <?php get_sidebar( 'blog' ); ?>

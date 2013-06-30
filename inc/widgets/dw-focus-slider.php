@@ -1,8 +1,9 @@
 <?php  
 /**
- * Recent_Posts widget class
+ * dw_focus_top_posts widget class
  *
- * @since 2.8.0
+ * @package DW Focus
+ * @since 1.0.2
  */
 class dw_focus_top_posts extends WP_Widget {
 
@@ -54,7 +55,7 @@ class dw_focus_top_posts extends WP_Widget {
         
         <?php echo $before_widget; ?>
             <div class="clearfix">
-                <div id="top-stories-carousel-<?php echo $this->id; ?>" class="carousel slide" data-pause="hover" data-interval="<?php echo ($interval>0)?$interval*1000:'false'; ?>">
+                <div id="top-stories-carousel-<?php echo $this->id; ?>" class="carousel slide">
                     <div class="carousel-inner">
                         <?php  
                             $i = 0;
@@ -90,7 +91,7 @@ class dw_focus_top_posts extends WP_Widget {
                                         <div class="entry-meta">
                                         <?php 
                                             if( isset( $instance['date'] ) && $instance['date'] ) { 
-                                                echo dw_focus_time_stamp( get_the_date() );
+                                                echo get_the_date('c');
                                             }
                                         ?>
                                         </div>
@@ -130,6 +131,14 @@ class dw_focus_top_posts extends WP_Widget {
                     <div class="carousel-nav"><ul></ul></div>
                 </div>
             </div>
+            <script>
+            jQuery(document).ready(function($) {
+                $('#top-stories-carousel-<?php echo $this->id; ?>').carousel({
+                    interval : <?php echo ($interval>0)?$interval*1000:'false' ?>,
+                    pause: 'hover'
+                });
+            });
+            </script>
         <?php echo $after_widget; ?>
 <?php
         // Reset the global $the_post as this query will have stomped on it
@@ -181,7 +190,7 @@ class dw_focus_top_posts extends WP_Widget {
         <input id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="text" value="<?php echo $number; ?>" size="3" /></p>
         
         <p><label for="<?php echo $this->get_field_id('interval'); ?>"><?php _e('Interval time (0 for disabled):','dw_focus'); ?></label>
-        <input id="<?php echo $this->get_field_id('interval'); ?>" name="<?php echo $this->get_field_name('interval'); ?>" type="text" value="<?php echo $interval; ?>" size="3" /></p>
+        <input id="<?php echo $this->get_field_id('interval'); ?>" name="<?php echo $this->get_field_name('interval'); ?>" type="text" value="<?php echo $interval; ?>" size="3" /><span class="description"><?php _e('second(s)','dw_focus') ?></span></p>
 
         <p><label for="<?php echo $this->get_field_id('category'); ?>"><?php _e('Category:','dw_focus'); ?></label><br>
             <?php wp_dropdown_categories(array(

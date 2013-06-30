@@ -1,9 +1,8 @@
 <?php  
 
 /**
- * new WordPress Widget format
- * Wordpress 2.8 and above
- * @see http://codex.wordpress.org/Widgets_API#Developing_Widgets
+ * @package DW Focus
+ * @since DW Focus 1.0.2
  */
 class dw_focus_categories_Widget extends WP_Widget {
 
@@ -252,7 +251,7 @@ class dw_focus_categories_Widget extends WP_Widget {
                         <p class="entry-meta">
                         <?php 
                             if( isset( $instance['date'] ) && $instance['date'] ) { 
-                                echo dw_focus_time_stamp( get_the_date() );
+                                echo get_the_date('c');
                             }
                         ?>
                         </p>
@@ -331,7 +330,7 @@ class dw_focus_categories_Widget extends WP_Widget {
                 <p class="entry-meta">
                 <?php 
                     if( isset( $instance['date'] ) && $instance['date'] ) { 
-                        echo dw_focus_time_stamp( get_the_date() );
+                        echo get_the_date('c');
                     }
                 ?>
                 </p>

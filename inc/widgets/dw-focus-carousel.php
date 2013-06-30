@@ -76,7 +76,7 @@ class dw_focus_videos extends WP_Widget {
         
         <?php echo $before_widget; ?>
         <?php echo $before_title . $title . $after_title; ?>
-        <div id="videos" class="carousel slide" data-pause="hover" data-interval="<?php echo ($interval>0)?$interval*1000:'false'; ?>">
+        <div id="dwqa-news-carousel-<?php echo $this->id ?>" class="carousel slide" data-pause="hover" data-interval="<?php echo ($interval>0)?$interval*1000:'false'; ?>">
             <div class="carousel-inner">
                 <div class="active item">
                     <div class="row-fluid">
@@ -84,44 +84,41 @@ class dw_focus_videos extends WP_Widget {
                 $i = 0;
                 while ( $r->have_posts() ) { $r->the_post();
             ?>
-
-                    <?php
-                        if( $i != 0 && $i % $col == 0 ) { 
-                    ?>
-                        </div>
+                <?php if( $i != 0 && $i % $col == 0 ) {  ?>
                     </div>
-                    <div class="item">
-                        <div class="row-fluid">
-                    <?php } ?>
-                            <?php  
-                                $class = 'span3';
-                                if( has_post_thumbnail( get_the_ID() ) ) {
-                                    $class .= ' has-thumbnail';
-                                }
-                            ?>
-                            <article <?php post_class($class); ?>>
-                                <?php if( has_post_thumbnail(get_the_ID()) ) { ?>
-                                <div class="entry-thumbnail">
-                                    <a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>">
-                                        <?php echo dw_focus_post_format_icons($this); ?>
-                                        <?php the_post_thumbnail($size); ?>
-                                    </a>
-                                </div>
-                                <?php } ?>
-                                <h2 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php the_title(); ?></a></h2>
-                                <div class="entry-meta">
-                                    <time datetime="<?php echo get_post_time('c') ?>" class="entry-date"><?php echo get_post_time('d.m.Y') ?></time>
-                                </div>
-                            </article>
+                </div>
+                <div class="item">
+                    <div class="row-fluid">
+                <?php } ?>
+                    <?php  
+                        $class = 'span3';
+                        if( has_post_thumbnail( get_the_ID() ) ) {
+                            $class .= ' has-thumbnail';
+                        }
+                    ?>
+                    <article <?php post_class($class); ?>>
+                        <?php if( has_post_thumbnail(get_the_ID()) ) { ?>
+                        <div class="entry-thumbnail">
+                            <a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>">
+                                <?php echo dw_focus_post_format_icons($this); ?>
+                                <?php the_post_thumbnail($size); ?>
+                            </a>
+                        </div>
+                        <?php } ?>
+                        <h2 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php the_title(); ?></a></h2>
+                        <div class="entry-meta">
+                            <time datetime="<?php echo get_post_time('c') ?>" class="entry-date"><?php echo get_post_time('d.m.Y') ?></time>
+                        </div>
+                    </article>
             <?php 
-                    $i++;
-                } ?>
+                $i++;
+            } ?>
                     </div>
                 </div>
             </div>
 
-            <a class="carousel-control left" href="#videos" data-slide="prev"><i class="icon-chevron-left"></i></a>
-            <a class="carousel-control right" href="#videos" data-slide="next"><i class="icon-chevron-right"></i></a>
+            <a class="carousel-control left" href="#dwqa-news-carousel-<?php echo $this->id ?>" data-slide="prev"><i class="icon-chevron-left"></i></a>
+            <a class="carousel-control right" href="#dwqa-news-carousel-<?php echo $this->id ?>" data-slide="next"><i class="icon-chevron-right"></i></a>
             <div class="carousel-nav"><ul></ul></div>
         </div>
         <?php echo $after_widget; ?>
@@ -188,6 +185,10 @@ class dw_focus_videos extends WP_Widget {
                 <option <?php selected($post_format, 'audio') ?> value="audio">Audio</option>
               
             </select>   
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('interval'); ?>"><?php _e( 'Interval time (0 for disabled)', 'dw_focus') ?></label>
+            <input type="text" name="<?php echo $this->get_field_name('interval'); ?>" id="<?php echo $this->get_field_id('interval'); ?>" value="<?php echo $interval  ?>" class="small-text"> <span class="description"><?php _e('second(s)','dw_focus') ?></span>
         </p>
 <?php
     }

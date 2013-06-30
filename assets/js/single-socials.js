@@ -61,28 +61,4 @@ jQuery(function($) {
           }
     });
 
-    jQuery(document).ready(function($) {
-        $.ajax({
-          url: dw_focus.ajax_url,
-          type: 'POST',
-          dataType: 'json',
-          data: {
-            action: 'dw-sharing-count-from-url',
-            url: window.location.href,
-            nonce: $('.social-action').data('nonce')
-          },
-          success: function(data, textStatus, xhr) {
-            if( data.success ) {
-              if( data.data['linkedin'] > 0 ) {
-                $('.digit-linkedin').text( data.data['linkedin'] );  
-              }
-              if( data.data['facebook'] > 0 ) {
-                $('.digit-facebook').text( data.data['facebook'] );  
-              } 
-              
-            }
-          },
-        });
-        
-    });
 });

@@ -1,6 +1,6 @@
 <?php
 /*
- * Single post metadata and sharing
+ * The template for displaying content on the search page.
  *
  * @package DW Focus
  * @since DW Focus 1.0
@@ -12,8 +12,7 @@
 		<h1 class="entry-title"><?php the_title(); ?></h1>
 		
 		<div class="entry-meta">
-			<?php dw_focus_get_category(); ?>
-			<br>
+			<?php dw_focus_posted_on(); ?>
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 
@@ -28,8 +27,7 @@
 		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'dw_focus' ), 'after' => '</div>' ) ); ?>
 	</div><!-- .entry-content -->
 
-	<!-- Load in author info, tags, and sharing sidebar -->
-	<?php dw_focus_post_actions(); ?> 
+	<?php dw_focus_post_actions(); ?>
 
 	<footer class="entry-meta entry-meta-bottom">
 		<?php if ( get_the_author_meta( 'description' ) ) : ?>

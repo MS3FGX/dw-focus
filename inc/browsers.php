@@ -2,8 +2,7 @@
 /**
  * Browsers & Devices Check
  *
- * @package DW Page
- * @since DW Page 1.0
+ * @package DW Focus
  */
 
 $useragent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "";

@@ -3,7 +3,7 @@
  * The template for displaying content on the archive page.
  *
  * @package DW Focus
- * @since DW Focus 1.0
+ * @since DW Focus 1.0.2
  */
 ?>
 
@@ -38,7 +38,7 @@
                     </h2>
 
                     <div class="entry-meta entry-meta-top">
-                        <?php echo dw_focus_time_stamp( get_the_date('c') ); ?>
+                        <?php echo get_the_date('c'); ?>
 
                         <?php
                             $categories_list = get_the_category_list( __( ', ', 'dw_focus' ) );
@@ -59,7 +59,7 @@
                 <h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'dw_focus' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 
                 <div class="entry-meta entry-meta-top">
-                    <?php echo dw_focus_time_stamp( get_the_date('c') ); ?>
+                    <?php echo get_the_date('c'); ?>
 
                     <?php
                         /* translators: used between list items, there is a space after the comma */

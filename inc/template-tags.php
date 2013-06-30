@@ -5,7 +5,6 @@
  * Eventually, some of the functionality here could be replaced by core features
  *
  * @package DW Focus
- * @since DW Focus 1.0
  */
 
 if ( ! function_exists( 'dw_focus_content_nav' ) ) :
@@ -94,7 +93,7 @@ function dw_focus_comment( $comment, $args, $depth ) {
 						esc_url( get_comment_link( $comment->comment_ID ) ),
 						get_comment_time( 'c' ),
 						/* translators: 1: date, 2: time */
-						sprintf( __( ' %1$s', 'dw_focus' ), dw_focus_time_stamp( get_comment_time() ) )
+						get_comment_time( 'c' )
 					);
 					
 				?>
@@ -110,7 +109,7 @@ function dw_focus_comment( $comment, $args, $depth ) {
 			</section><!-- .comment-content -->
 
 			<div class="reply">
-				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply', 'dw_focus' ), 'after' => ' <span><i class="icon-comment"></i></span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply', 'dw_focus' ), 'after' => ' <span><i class="icon-reply"></i></span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
 			</div><!-- .reply -->
 		</article><!-- #comment-## -->
 	<?php
@@ -120,20 +119,20 @@ function dw_focus_comment( $comment, $args, $depth ) {
 endif; // ends check for dw_focus_comment()
 
 if ( ! function_exists( 'dw_focus_posted_on' ) ) :
-// Return date of post
+/**
+ * Prints HTML with meta information for the current post-date/time and author.
+ *
+ * @since DW Focus 1.0
+ */
 function dw_focus_posted_on() {
+	the_category();
 	printf( __( '<time class="entry-date" datetime="%3$s" pubdate>%4$s</time>', 'dw_focus' ),
 		esc_url( get_permalink() ),
 		esc_attr( get_the_time() ),
 		esc_attr( get_the_date( 'c' ) ),
-		dw_focus_time_stamp( get_the_date('c') )
+	 	get_the_date('c')
 	);
 }
-endif;
-
-if ( ! function_exists( 'dw_focus_get_category' ) ) :
-// Show big category buttons
-function dw_focus_get_category() {the_category();}
 endif;
 
 /**

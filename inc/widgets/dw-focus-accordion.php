@@ -1,6 +1,5 @@
 <?php  
 class dw_focus_accordion_Widget extends dw_focus_dynamic_Widget {
-
     /**
      * Constructor
      *

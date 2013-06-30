@@ -17,13 +17,12 @@ get_header(); ?>
             
             <?php if ( have_posts() ) : ?>
             <div class="post-layout">
-                <a class="layout-list <?php dw_active(apply_filters( 'cat_display_filter', ot_get_option('cat_display')),'list'); ?>" href="#"><i class="icon-th-list"></i></a>
-                <a class="layout-grid <?php dw_active(apply_filters( 'cat_display_filter', ot_get_option('cat_display')),'grid'); ?>" href="#"><i class="icon-th"></i></a>
+                <a class="layout-list <?php dw_active(apply_filters( 'cat_display_filter', dw_get_option('cat_display')),'list'); ?>" href="#"><i class="icon-th-list"></i></a>
+                <a class="layout-grid <?php dw_active(apply_filters( 'cat_display_filter', dw_get_option('cat_display')),'grid'); ?>" href="#"><i class="icon-th"></i></a>
             </div>
             <?php endif; ?>
         </div>
-
-        <div class="content-inner <?php echo 'layout-'.apply_filters( 'cat_display_filter', ot_get_option('cat_display')); ?>">
+        <div class="content-inner <?php echo 'layout-'.apply_filters( 'cat_display_filter', dw_get_option('cat_display')); ?>">
 		<?php if ( have_posts() ) : ?>
             <?php global $archive_i; $archive_i = 1 ?>
 			<?php while ( have_posts() ) : the_post(); ?>

@@ -1,0 +1,22 @@
+body{
+	visibility: hidden;
+}
+
+#colophon, #masthead, #secondary{
+	display: none;
+}
+
+body .site-content .content-print {
+	visibility: visible;
+	page-break-before: "";
+	page-break-after: "";
+}
+
+body .site-content .content-print .entry-action,.related-post,.site-header, .comments-area, .widget-area, .comments-area, body .site-content .content-print iframe, body .site-content .content-print embed {
+	display: none;
+}
+
+.single .site-content>.post footer.entry-meta {
+	padding: 5px;
+	margin-bottom: 0px;
+}

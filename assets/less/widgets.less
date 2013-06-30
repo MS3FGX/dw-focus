@@ -22,7 +22,7 @@
 	font-size: 14px;
     line-height: 22px;
     margin: 0 0 10px;
-}
+} 
 
 .widget .entry-meta {
 	font-size: 11px;
@@ -442,6 +442,9 @@
             background: @grayDark;
             border-radius: 20px;
             line-height: 4px;
+            width: 12px;
+            height: 12px;
+            .box-sizing(border-box);
 
             &.active a {
                 background: @grayLight !important;
@@ -467,8 +470,6 @@
 
         a {
             display: inline-block;
-            width: 30px;
-            height: 30px;
             text-indent: -9999px;
             width: 4px;
             height: 4px;
@@ -888,8 +889,17 @@
 		.widget-title {
 			display: none;
 
-			+ .hentry {
+			+ .hentry,
+    		+ .hentry + .hentry + .hentry + .hentry,
+        	+ .hentry + .hentry + .hentry + .hentry + .hentry + .hentry + .hentry {
 				margin-left: 0;
+				clear: left; 
+			}
+
+			+ .hentry,
+			+ .hentry + .hentry +,
+			+ .hentry + .hentry + .hentry + {
+				margin-top: 0;
 			}
 		}
 
@@ -897,9 +907,15 @@
 			width: 30%;
 			float: left;
 			margin-left: 5%;
+			margin-top: 20px;
 
 			&:first-child {
 				margin-left: 0;
+			}
+
+			&:nth-of-type(3n + 4) {
+				margin-left: 0;
+				clear: left; 
 			}
 		}
 
@@ -1031,16 +1047,17 @@
 
 	// Widget Latest Twitter
 	// -------------------------
-	.latest-twitter {
+	
+	.latest-twitte:last-child {
+		margin-bottom: 30px;
+	} 
+
+	.dw-twitter-inner {
 		border: 1px solid @grayLighter;
 		padding: 15px 20px;
 		margin-bottom: 50px;
 		position: relative;
 		.arrowBottom2(#bbb,@white);
-
-		&:last-child {
-			margin-bottom: 30px;
-		}
 
 		.user {
 			position: absolute;
@@ -1065,6 +1082,16 @@
 			font-size: 11px;
 			margin: 10px 0 0;
 			color: #999;
+		}
+
+		.twitter-follow-button {
+			position: absolute;
+			bottom: -55px;
+			right: 0;
+		}
+
+		&.has-follow-button {
+			margin-bottom: 75px;
 		}
 	}
 
@@ -1205,7 +1232,11 @@
 
 		.widget-title{
 			float: left;
-			margin-top: 11px;
+			margin: 0;
+			position: relative;
+			top: 10px;
+			line-height: 20px;
+			height: 20px;
 		}
 
 		.headlines { 
@@ -1213,7 +1244,7 @@
 			overflow: hidden;
 			padding: 0 0 0 15px;
 			position: relative;
-			top: 10px;
+			top: 9px;
 
 			ul {
 				list-style: none;
@@ -1221,7 +1252,7 @@
 			}
 
 			li {
-				line-height: 1;
+				line-height: 20px;
 				height: 20px;
 			}
 
@@ -1306,7 +1337,7 @@
 		}
 
 		.carousel-nav {
-			bottom: 5px;
+			bottom: 5px;  
 			margin: 0 auto;
 			position: absolute;
 			width: 100%;
@@ -1315,14 +1346,18 @@
 				margin: 0 0 -2px;
 				list-style: none;
 				text-align: center;
-			}
+			} 
 
 			li {
 				display: inline-block;
+				width: 12px;
+				height: 12px;
 				padding: 3px;
 				border: 1px solid #ccc;
 				border-radius: 20px;
-				line-height: 4px;
+				line-height: 2px;
+				overflow: hidden;
+				.box-sizing(border-box); 
 
 				.chrome &,
 				.safari & {
@@ -1335,8 +1370,6 @@
 
 				a {
 					display: inline-block;
-					width: 30px;
-					height: 30px;
 					text-indent: -9999px;
 					width: 4px;
 					height: 4px;

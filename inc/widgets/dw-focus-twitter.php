@@ -26,7 +26,9 @@ class dw_focus_twitter_query_Widget extends WP_Widget {
     function widget( $args, $instance ) {
         extract( $args, EXTR_SKIP );
         echo $before_widget;
+        echo '<div class="dw-twitter-inner '.(isset($instance['show_follow'])&&$instance['show_follow']?'has-follow-button':'').'" >';
         $this->get_tweets($instance);
+        echo '</div>';
         echo $after_widget;
     }
 
@@ -40,6 +42,20 @@ class dw_focus_twitter_query_Widget extends WP_Widget {
      **/
     function update( $new_instance, $old_instance ) {
         // update logic goes here
+        if( ! isset($new_instance['show_follow']) ) {
+            $new_instance['show_follow'] = false;
+        }
+        if( ! isset($new_instance['show_avatar']) ) {
+            $new_instance['show_avatar'] = false;
+        }
+        if( ! isset($new_instance['show_account']) ) {
+            $new_instance['show_account'] = false;
+        }
+
+        if( ! isset($new_instance['exclude_replies']) ) {
+            $new_instance['exclude_replies'] = false;
+        }
+
         $updated_instance = $new_instance;
         return $updated_instance;
     }
@@ -52,8 +68,12 @@ class dw_focus_twitter_query_Widget extends WP_Widget {
      **/
     function form( $instance ) {
         $instance = wp_parse_args( $instance, array( 
-            'query'     => 'wp_designwall',
-            'number'    =>  1,
+            'query'             => 'wp_designwall',
+            'number'            =>  1,
+            'show_follow'       => 'false',
+            'show_avatar'       => 'false',
+            'show_account'      => 'true',
+            'exclude_replies'   => 'false',
         ) );
     ?>  
         <p><label for="<?php echo $this->get_field_id('query') ?>"></label>
@@ -64,22 +84,49 @@ class dw_focus_twitter_query_Widget extends WP_Widget {
             ('number') ?>" id="<?php echo $this->get_field_id
             ('number') ?>" size="3" value="<?php echo $instance['number'] ?>" >
         </p>
+        <p><label for="<?php echo $this->get_field_id('show_follow') ?>">
+            <input type="checkbox" name="<?php echo $this->get_field_name('show_follow'); ?>" id="<?php echo $this->get_field_id('show_follow'); ?>" <?php checked( 'true', $instance['show_follow'] ) ?> value="true" >
+            <?php _e('Show follow buttons?', 'dw_focus') ?></label>
+        </p>
+        <p><label for="<?php echo $this->get_field_id('show_account') ?>">
+            <input type="checkbox" name="<?php echo $this->get_field_name('show_account'); ?>" id="<?php echo $this->get_field_id('show_account'); ?>" <?php checked( 'true', $instance['show_account'] ) ?>  value="true"  >
+            <?php _e('Show account info?', 'dw_focus') ?></label>
+        </p>
+        <p><label for="<?php echo $this->get_field_id('show_avatar') ?>">
+            <input type="checkbox" name="<?php echo $this->get_field_name('show_avatar'); ?>" id="<?php echo $this->get_field_id('show_avatar'); ?>" <?php checked( 'true', $instance['show_avatar'] ) ?>  value="true" >
+            <?php _e('Show Avatar?', 'dw_focus') ?></label>
+        </p>
+        <p><label for="<?php echo $this->get_field_id('exclude_replies') ?>">
+            <input type="checkbox" name="<?php echo $this->get_field_name('exclude_replies'); ?>" id="<?php echo $this->get_field_id('exclude_replies'); ?>" <?php checked( 'true', $instance['exclude_replies'] ) ?>  value="true"  >
+            <?php _e('Exclude replies', 'dw_focus') ?></label>
+        </p>
     <?php
     }
 
 
     function get_tweets($instance){
         $instance = wp_parse_args( $instance, array( 
-            'query'     => 'from:wp_designwall',
-            'number'    =>  1,
-            'css_class' =>  ''
+            'query'             => 'wp_designwall',
+            'number'            =>  1,
+            'css_class' =>  '',
+            'show_follow'       => false,
+            'show_avatar'       => false,
+            'show_account'      => true,
+            'exclude_replies'   => false,
         ) );
         extract($instance);
+        if( ! $query ) {
+            return false;
+        }
         $results = array();
         $type = '';
         if( strpos($query, 'from:') === 0 ){
             $type = 'from';
             $url = 'https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name='.str_replace('from:', '', $query).'&count='.$number;
+            if( $exclude_replies ) {
+                $url .= '&exclude_replies=true';
+            }
+
             $results = json_decode(  $this->getContent($url) );
         }else{
             $url = 'http://search.twitter.com/search.json?q='.rawurlencode($query).'&amp;rpp='.$number.'&amp;result_type=recent&include_entities=true&include_rts=true';
@@ -87,6 +134,8 @@ class dw_focus_twitter_query_Widget extends WP_Widget {
             $results = $feed->results;
         }
         if( $results ){
+            $follow_button = '<a href="https://twitter.com/__name__" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @__name__</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
             foreach ($results as $tweet ) {
                 $twitter_id = 'twitter-id-'.$tweet->id_str;
                 $tweet_content = $this->updateTweetUrls( $tweet->text );
@@ -94,19 +143,46 @@ class dw_focus_twitter_query_Widget extends WP_Widget {
                 if( strpos($query, 'from:') === 0 ){
                     $user_nick = $tweet->user->screen_name;
                     $user = $tweet->user->name;
+                    $profile_image_url = $tweet->user->profile_image_url;
                     $url = 'http://twitter.com/'.$tweet->user->id_str.'/status/'.$tweet->id_str;
                 }else{
                     $user_nick = $tweet->from_user_name;
                     $user = $tweet->from_user;
+                    $profile_image_url = $tweet->profile_image_url;
                     $url = 'http://twitter.com/'.$tweet->from_user_id_str.'/status/'.$tweet->id_str;
                 } 
                 echo '<div class="tweet-item"> '.$tweet_content.' <span class="time"><a target="_blank" title="" href="'.$url.'"> about '.$time.' ago</a></span></div>';
 
-                if( !$type )
-                echo '<a href="https://twitter.com/'.$user_nick.'" class="user"><i class="icon-twitter"></i> <span>'.$user.'</span></a>';
+                if( !$type ) {
+                    echo '<div class="twitter-user">';
+                    if( $show_account ) {
+                        echo '<a href="https://twitter.com/'.$user_nick.'" class="user">';
+                        if( $show_avatar && $profile_image_url ) {
+                            echo '<img src="'.$profile_image_url.'" width="16px" height="16px" >';
+                        }
+                        echo '<i class="icon-twitter"></i> <span>'.$user.'</span></a>';
+                    }
+                    if( $show_follow ) {
+                        echo str_replace('__name__', $user_nick, $follow_button);
+                    }
+                    echo '</div>';
+                }
             }
             if( $type == 'from' ){
-                echo '<a href="https://twitter.com/'.$user_nick.'" class="user"><i class="icon-twitter"></i> <span>'.$user.'</span></a>';
+                echo '<div class="twitter-user">';
+                if( $show_account ) {
+                    echo '<a href="https://twitter.com/'.$user_nick.'" class="user">';
+                    if( $show_avatar && $profile_image_url ) {
+                        echo '<img src="'.$profile_image_url.'" width="16px" height="16px" >';
+                    } else {
+                        echo '<i class="icon-twitter"></i>';
+                    }
+                    echo ' <span>'.$user_nick.'</span></a>';
+                }
+                if( $show_follow ) {
+                    echo str_replace('__name__', $user_nick, $follow_button);
+                }
+                echo '</div>';
             }
         }
     }
@@ -145,7 +221,6 @@ class dw_focus_twitter_query_Widget extends WP_Widget {
             // curl library is not installed so we better use something else
             $content = file_get_contents($url);
         }
-
         return $content;
     }
 }

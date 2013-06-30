@@ -1,8 +1,9 @@
 <?php  
 /**
- * Recent_Posts widget class
+ * dw_focus_recents_posts_Widget widget class
  *
- * @since 2.8.0
+ * @package DW Focus
+ * @since DW Focus 1.0.2
  */
 class dw_focus_recents_posts_Widget extends WP_Widget {
 
@@ -50,7 +51,7 @@ class dw_focus_recents_posts_Widget extends WP_Widget {
 
                 <?php if( has_post_thumbnail( get_the_ID() ) ) { ?>
                 <div class="entry-thumbnail">
-                    <?php if( $instance['post-format'] == 'gallery' ) { ?>
+                    <?php if( isset($instance['post-format']) && $instance['post-format'] == 'gallery' ) { ?>
                     <?php } else { ?>
                     <a href="<?php the_permalink() ?>">
                         <?php the_post_thumbnail($thumbnail_size); ?>
@@ -63,7 +64,7 @@ class dw_focus_recents_posts_Widget extends WP_Widget {
                 <p class="entry-meta">
                 <?php 
                     if( isset( $instance['date'] ) && $instance['date'] ) { 
-                        echo dw_focus_time_stamp( get_the_date() );
+                        echo  get_the_date();
                     }
                 ?>
                 </p>
@@ -93,7 +94,7 @@ class dw_focus_recents_posts_Widget extends WP_Widget {
               <?php if( !isset($instance['thumbnail']) || !$instance['thumbnail'] ) { ?>
 
                     <?php if( has_post_thumbnail($post_id) ) { ?>
-                        <?php if( $instance['post-format'] == 'gallery' ) { ?>
+                        <?php if( isset($instance['post-format']) && $instance['post-format'] == 'gallery' ) { ?>
                         
                             <?php  
                                 $images = $this->get_images($post_id);
@@ -137,7 +138,7 @@ class dw_focus_recents_posts_Widget extends WP_Widget {
                 <div class="entry-meta">
                     <?php 
                     if( isset( $instance['date'] ) && $instance['date'] ) { 
-                        echo dw_focus_time_stamp( get_the_date() );
+                        echo get_the_date();
                     }
                 ?>
                 </div>
@@ -152,8 +153,6 @@ class dw_focus_recents_posts_Widget extends WP_Widget {
 
             <?php endwhile; ?>
         <?php
-        // Reset the global $the_post as this query will have stomped on it
-        wp_reset_postdata();
         else:
             get_template_part('no-results');
         endif;

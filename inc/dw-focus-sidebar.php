@@ -2,7 +2,7 @@
 /**
  * Register widgetized area and update sidebar with default widgets
  *
- * @since DW Focus 1.0
+ * @package DW Focus
  */
 function dw_focus_widgets_init() {
     

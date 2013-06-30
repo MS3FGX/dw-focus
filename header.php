@@ -20,7 +20,6 @@
 <![endif]-->
 <?php wp_head(); ?>
 </head>
-
 <body <?php body_class(); ?> >
 	<header id="masthead" class="site-header" role="banner">
 	    <div class="container">
@@ -44,7 +43,7 @@
 	        </div>
 	        <?php 
 	        	if( !is_handheld() ) :
-			        $max_number_posts = ot_get_option('dw_menu_number_posts');
+			        $max_number_posts = dw_get_option('dw_menu_number_posts');
 			        if( ! $max_number_posts ) {
 			            $max_number_posts = 15;
 			        }
@@ -71,33 +70,38 @@
 							<i class="icon-search"></i>
 						</button>
 
-						<a class="small-logo hidden-desktop" rel="home" title="The Powerbase" href="<?php echo esc_url( home_url( '/' ) ); ?>">The Powerbase</a>
-
+						<a class="small-logo hidden-desktop" rel="home" title="DW Focus" href="<?php echo esc_url( home_url( '/' ) ); ?>">DW Focus</a>
+					
 						<?php  
 							// Social links
-							$facebook = ot_get_option('dw_facebook');
-							$twitter = ot_get_option('dw_twitter');
-							$gplus = ot_get_option('dw_gplus');
+							$facebook = dw_get_option('dw_facebook');
+							$twitter = dw_get_option('dw_twitter');
+							$gplus = dw_get_option('dw_gplus');
+							$linkedin = dw_get_option('dw_linkedin');
+							$feedlink = dw_get_option('dw_feedlink', true);
+							$loginlink = dw_get_option('dw_loginlink', true);
 						?>
-<!-- Social hover -->
-<ul class="social-links visible-desktop">
-<?php if( $facebook ) { ?>
-<li class="facebook"><a target="_blank" href="<?php echo $facebook; ?>" title="<?php _e('Facebook','dw-focus') ?>"><i class="icon-facebook"></i></a></li>
-<?php } ?>
+						<ul class="social-links visible-desktop">
+							<?php if( $facebook ) { ?>
+							<li class="facebook"><a target="_blank" href="<?php echo $facebook; ?>" title="<?php _e('Facebook','dw-focus') ?>"><i class="icon-facebook"></i></a></li>
+							<?php } ?>
+							<?php if( $twitter ) { ?>
+							<li class="twitter"><a target="_blank" href="<?php echo $twitter;  ?>" title="<?php _e('Twitter','dw-focus') ?>"><i class="icon-twitter"></i></a></li>
+							<?php } ?>
+							<?php if(  $gplus ) { ?>
+							<li class="google-plus"><a target="_blank" href="<?php echo $gplus ?>" title="<?php _e('Google Plus','dw-focus') ?>"><i class="icon-google-plus"></i></a></li>
+							<?php } ?>
+							<?php if( $linkedin ) { ?>
+							<li class="linkedin"><a target="_blank" href="<?php echo $linkedin ?>" title="<?php _e('Linked in','dw-focus') ?>"><i class="icon-linkedin"></i></a></li>
+							<?php } ?>
+							<?php if( $feedlink ) { ?>
+							<li class="rss"><a href="<?php bloginfo('rss2_url'); ?>" title="<?php _e('Rss','dw-focus') ?>"><i class="icon-rss"></i></a></li>
+							<?php } ?>
+							<?php if( $loginlink ) { ?>
+							<li class="login"><a href="<?php echo wp_login_url( get_permalink() ); ?>" title="<?php _e('Login','dw-focus') ?>"><i class="icon-user"></i></a>
+							<?php } ?>
+						</ul><!-- End social links -->
 
-<?php if( $gplus ) { ?>
-<li class="gplus"><a target="_blank" href="<?php echo $gplus; ?>" title="<?php _e('Google Plus','dw-focus') ?>"><i class="icon-google-plus"></i></a></li>
-<?php } ?>
-
-<?php if( $twitter ) { ?>
-<li class="twitter"><a target="_blank" href="<?php echo $twitter;  ?>" title="<?php _e('Twitter','dw-focus') ?>"><i class="icon-twitter"></i></a></li>
-<?php } ?>
-
-<li class="rss"><a href="<?php bloginfo('rss2_url'); ?>" title="<?php _e('RSS','dw-focus') ?>"><i class="icon-rss"></i></a></li>
-
-<!-- <li class="login"><a href="<?php echo wp_login_url( get_permalink() ); ?>" title="<?php _e('Login','dw-focus') ?>"><i class="icon-user"></i></a> -->
-</ul>
-<!-- End social hover -->
 						<div class="search-collapse collapse">
 							<?php get_search_form( $echo = true ); ?>
 						</div>

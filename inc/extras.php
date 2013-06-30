@@ -5,7 +5,6 @@
  * Eventually, some of the functionality here could be replaced by core features
  *
  * @package DW Focus
- * @since DW Focus 1.0
  */
 
 /**

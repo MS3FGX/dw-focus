@@ -7,6 +7,7 @@ jQuery(function($) {
     $(this).find('.accordion-toggle').not($(e.target)).removeClass('active');
     }); 
 
+    //Slide init
     $('.carousel').on('slid',function(e){
         var t = $(this);
         var index = t.find('.item.active').index(),
@@ -58,9 +59,6 @@ jQuery(function($) {
     $('.carousel').each(function(){
         var t = $(this),
             nav = [ t, t.closest('.news-slider') ];
-
-        t.carousel();
-
         for( var key in nav ) {
             if( nav[key].length > 0 ) {
                 nav[key].find('.carousel-nav ul').delegate('li','click',function(e){
@@ -279,6 +277,9 @@ jQuery(function($) {
         }
 
         // Slide gallery on handheld device
+        $('.carousel .item').each(function(){
+            disableDraggingFor( this );
+        });
         $('.carousel').on('swipeleft',function(event){
             var t = $(this);
             $(this).carousel('next');
@@ -286,7 +287,7 @@ jQuery(function($) {
         $('.carousel').on('swiperight',function(event){
             var t = $(this);
             $(this).carousel('prev');
-        });
+        });//End swipe 
 
         if( 'ontouchstart' in document.documentElement ) {
           var clickable = null;
@@ -312,6 +313,32 @@ jQuery(function($) {
             }
           });
         }
+
+        //Submenu auto align
+        $('.nav .menu-item').on('hover',function(event){
+            var t = $(this),
+                submenu = t.find('.sub-mega-wrap');
+            if( submenu.length > 0 ) {
+                var offset = submenu.offset(),
+                    w = submenu.width();
+                if( offset.left + w > $(window).width() ) {
+                    t.addClass('sub-menu-left');
+                } else {
+                    t.removeClass('sub-menu-left');
+                }
+            }
+        });// End submenu auto align
+
+        function disableDraggingFor(element) {
+          // this works for FireFox and WebKit in future according to http://help.dottoro.com/lhqsqbtn.php
+          element.draggable = false;
+          // this works for older web layout engines
+          element.onmousedown = function(event) {
+            event.preventDefault();
+            return false;
+          };
+        }
+
     });
 });
 

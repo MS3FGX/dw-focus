@@ -3,7 +3,7 @@
  * DW Focus functions and definitions
  *
  * @package DW Focus
- * @since DW Focus 1.0
+ * @since DW Focus 1.0.2
  */
 
 /**
@@ -34,16 +34,6 @@ add_filter( 'ot_theme_options_icon_url', 'dw_theme_option_icon');
  * Required: set 'ot_theme_mode' filter to true.
  */
 add_filter( 'ot_theme_mode', '__return_true' );
- 
-/**
- * Required: include OptionTree.
- */
-include_once( 'inc/options/ot-loader.php' );
-/**
- * Theme Options
- */
-//include_once( 'inc/options/assets/theme-mode/demo-theme-options.php' );
-include_once( 'inc/options/theme-options.php' );
 
 /**
  * Set the content width based on the theme's design and stylesheet.
@@ -98,6 +88,9 @@ function dw_focus_setup() {
     require_once DW_TEMPLATE_PATH . 'inc/social-sharing.php';
     //Add avatar to profile
     require_once DW_TEMPLATE_PATH . 'inc/simple-avatar.php';
+    //Add avatar to profile
+    require_once DW_TEMPLATE_PATH . 'inc/customization.php';
+    require_once DW_TEMPLATE_PATH . 'inc/class-customize-control.php';
 
 	/**
 	 * Make theme available for translation
@@ -194,6 +187,8 @@ if( ! function_exists('dw_focus_scripts') ) {
             wp_localize_script('single-social', 'dw_focus', array(
                 'ajax_url'  =>  admin_url('admin-ajax.php'),
             ) );
+            //print
+            wp_enqueue_style( 'print-style', get_template_directory_uri() . '/assets/css/print.css', array(), false, $media = 'print' );
         } 
 
         //Swipe event
@@ -235,7 +230,7 @@ if( ! function_exists('dw_focus_pagenavi') ) {
     	$current_page = max(1, get_query_var('paged')); 
     	$big=999999999; 
         if( ! $type ) {
-            $type = ot_get_option('nav_type','number');
+            $type = dw_get_option('nav_type','number');
         }
     	if ( $max > 1 ) { ?>
     		
@@ -282,46 +277,49 @@ if( ! function_exists('dw_focus_next_posts_link_attributes') ) {
  * @return string       Time in human time
  */
 
-if( ! function_exists('dw_focus_time_stamp') ) { 
-    function dw_focus_time_stamp($from){
-    	$cmt_date = $from;
-    	$from = strtotime($from);
-    	$format = get_option('date_format');
+//update time stamp 
+if( ! function_exists('dw_human_time_diff') ) {
+    function dw_human_time_diff( $from, $format ){
+        $cmt_date = $from;
+        $from = strtotime($from);
 
-    	if ( empty($to) )
-    	$to = time();
-    	$diff = (int) abs($to - $from);
+        if ( empty($to) )
+            $to = current_time('timestamp');
+        $diff = (int) abs($to - $from);
 
-    	if($diff <= 1){
-    		$since = '1 second';
-    	} else if($diff <= 60 ){
-    		$since = sprintf(_n('%s second', '%s seconds', $diff), $diff);
-    	} else if ($diff <= 3600) {
-    	$mins = round($diff / 60);
+        if($diff <= 1){
+            $since = '1 second';
+        } else if($diff <= 60 ){
+            $since = sprintf(_n('%s second', '%s seconds', $diff), $diff);
+        } else if ($diff <= 3600) {
+        $mins = round($diff / 60);
 
-    	if ($mins <= 1) {
-    		$mins = 1;
-    	}
-    	/* translators: min=minute */
-    	$since = sprintf(_n('about %s min', '%s mins', $mins), $mins);
-    	} else if ( ($diff <= 86400) && ($diff > 3600)) {
-    		$hours = round($diff / 3600);
-    	if ($hours <= 1) {
-    		$hours = 1;
-    	}
-    	$since = sprintf(_n('about %s hour', '%s hours', $hours), $hours);
-    	} elseif ($diff >= 86400 && $diff <= 86400*2 ) {
-    		$days = round($diff / 86400);
-    	if ($days <= 1) {
-    		$days = 1;
-    	}
-    	$since = sprintf(_n('%s day', '%s days', $days), $days);
-    	} else {
-    		return date($format,$from);
-    	}
-    	return $since . ' ago';
+        if ($mins <= 1) {
+            $mins = 1;
+        }
+        /* translators: min=minute */
+        $since = sprintf(_n('about %s min', '%s mins', $mins), $mins);
+        } else if ( ($diff <= 86400) && ($diff > 3600)) {
+            $hours = round($diff / 3600);
+        if ($hours <= 1) {
+            $hours = 1;
+        }
+        $since = sprintf(_n('about %s hour', '%s hours', $hours), $hours);
+        } elseif ($diff >= 86400 && $diff <= 86400*2 ) {
+            $days = round($diff / 86400);
+        if ($days <= 1) {
+            $days = 1;
+        }
+        $since = sprintf(_n('%s day', '%s days', $days), $days);
+        } else {
+            return date( get_option( 'date_format' ), $from );
+        }
+        return $since . ' ago';
     }
+    add_filter( 'get_the_date', 'dw_human_time_diff', 10, 2);
+    add_filter( 'get_comment_time', 'dw_human_time_diff', 10, 2);
 }
+
 
 if( ! function_exists('dw_the_modified_time') ) { 
     function dw_the_modified_time( $d, $query = false ){
@@ -399,28 +397,42 @@ if( ! function_exists('dw_breadcrumb') ) {
 	}
 }
 
-/** Show author info, tags, and share options **/
 if( ! function_exists('dw_focus_post_actions') ) :
+	/**
+	 * Display Social Share, Print, Sent Button
+	 */
 	function dw_focus_post_actions() {
 
         $post_id = get_the_ID(); 
-        $url = rawurlencode(get_permalink());
+        $url = rawurlencode( get_permalink() );
         $title = rawurlencode(get_the_title());
-	$excerpt = get_the_excerpt();
 
-	?>
+        //Twitter
+        $twitter_count = dw_get_twitter_count( $url );
+        $facebook_count = dw_get_facebook_count( $url );
+        $linkedin_count = dw_get_linkedin_count( $url );
+
+        
+
+    ?>
 		<div class="entry-action">
-		<!-- Show author name/avatar -->
-		<span class="author-name"><?php echo get_avatar(get_the_author_email(), '24'); ?>  <?php the_author(); ?></span>
-		<br>
-		<!-- Show date -->
-		<?php
-			$metadata = wp_get_attachment_metadata();
-			printf( __( '<span class="entry-date"><time class="entry-date" datetime="%1$s" pubdate>%2$s</time></span>', 'dw_focus' ),
-				esc_attr( get_the_date( 'c' ) ), esc_html( get_the_date() ));
-		?>
+			<div class="social-action" data-nonce="<?php echo wp_create_nonce( '_dw_sharing_count_nonce' ) ?>">
+				<span class="title-action"><?php _e('Sharing','dw_focus') ?></span>
+				<ul>
+					<li id="twitter-share" class="twitter" data-post-id="<?php echo $post_id ?>" data-nonce="<?php echo wp_create_nonce( '_dw_focus_single_tweet_count_nonce' ); ?>"><i class="icon-twitter"></i><a href="https://twitter.com/intent/tweet?url=<?php echo $url; ?>&amp;text=<?php echo $title; ?>"><?php _e('Twitter','dw_focus') ?></a><span class="digit digit-twitter"><?php echo $twitter_count; ?></span></li>
+					<li class="facebook"><i class="icon-facebook-sign"></i><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url; ?>&amp;t=<?php echo $title; ?>" ><?php _e('Facebook','dw_focus') ?></a><span class="digit digit-facebook"><?php echo $facebook_count ?></span></li>
+					<li class="google"><i class="icon-google-plus-sign"></i><a href="https://plus.google.com/share?url=<?php echo $url; ?>" ><?php _e('Google +','dw_focus') ?></a><span>0</span></li>
+					<li class="linkedin"><i class="icon-linkedin-sign"></i><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $url ?>&amp;title=<?php echo $title ?>&amp;summary=<?php echo rawurlencode( get_the_excerpt() ); ?>"><?php _e('Linkedin','dw_focus') ?></a><span class="digit digit-linkedin"><?php echo $linkedin_count ?></span></li>
+					<li class="email"><i class="icon-envelope-alt"></i><a href="mailto:?Subject=<?php echo $title; ?>&amp;body=<?php echo $url; ?>"><?php _e('Email this article', 'dw_focus' ); ?></a></li>
+                    <?php if( ! is_handheld() ) { ?>
+					<li class="print"><i class="icon-print"></i><a href="#" onclick="window.print();"><?php _e('Print this article','dw_focus'); ?></a></li>
+                    <?php } ?>
+				</ul>
+			</div>
 
-		<?php
+
+			<?php
+	            /* translators: used between list items, there is a space after the comma */
 	            $tags_list = get_the_tag_list( '', __( ', ', 'dw_focus' ) );
 	            if ( $tags_list ) :
 	        ?>
@@ -431,23 +443,6 @@ if( ! function_exists('dw_focus_post_actions') ) :
 		        </span>
 	        </div>
 	        <?php endif; // End if $tags_list ?>
-		
-		<br>
-		
-		<div class="social-action" data-nonce="<?php echo wp_create_nonce( '_dw_sharing_count_nonce' ) ?>">
-			<span class="title-action"><?php _e('Share This','dw_focus') ?></span>
-			<ul>
-					<li id="twitter-share" class="twitter" data-post-id="<?php echo $post_id ?>" data-nonce="<?php echo wp_create_nonce( '_dw_focus_single_tweet_count_nonce' ); ?>"><i class="icon-twitter"></i><a href="https://twitter.com/intent/tweet?url=<?php echo $url; ?>&amp;text=<?php echo $title; ?>"><?php _e('Twitter','dw_focus') ?></a></li>
-					<li class="facebook"><i class="icon-facebook-sign"></i><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url; ?>&amp;t=<?php echo $title; ?>" ><?php _e('Facebook','dw_focus') ?></a></li>
-					<li class="google"><i class="icon-google-plus-sign"></i><a href="https://plus.google.com/share?url=<?php echo $url; ?>" ><?php _e('Google +','dw_focus') ?></a></li>
-					<li class="linkedin"><i class="icon-linkedin-sign"></i><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $url ?>&amp;title=<?php echo $title ?>&amp;summary=<?php echo $excerpt ?>"><?php _e('Linkedin','dw_focus') ?></a></li>
-					<li class="email"><i class="icon-envelope-alt"></i><a href="mailto:?Subject=<?php echo $title; ?>&body=<?php echo $excerpt ?>%0A%0A<?php echo $url; ?>"><?php _e('Email this article', 'dw_focus' ); ?></a></li>
-
-                    <?php if( ! is_handheld() ) { ?>
-					<li class="print"><i class="icon-print"></i><a href="javascript:window.print();"><?php _e('Print this article','dw_focus'); ?></a></li>
-                    <?php } ?>
-				</ul>
-			</div>
 		</div>
 	<?php }
 endif;
@@ -661,7 +656,7 @@ if( ! function_exists('dw_focus_add_layout_class') ) {
                 && is_page_template( 'Blog' ) ) {
         	$classes[] = 'template-blog';
         }
-        $classes[] = ot_get_option('dw_layout');
+        $classes[] = dw_get_option('dw_layout');
 
         return $classes;
     }
@@ -719,19 +714,28 @@ if( ! function_exists('dw_focus_add_menu_parent_class') ) {
 }
 
 /*---------------------------------------------------------------------------*/
-/*	Apply Website Setup
+/*  Apply Website Setup
 /*---------------------------------------------------------------------------*/
 if( ! function_exists('dw_script_header') ) {
     //Apply logo style
     function dw_script_header() {
-        $logo_custom_image = ot_get_option('dw_logo_image', get_template_directory_uri().'/assets/img/logo.png');
-        echo ot_get_option('dw_header_script');
+        $logo_custom_image = dw_get_option('dw_logo_image', get_template_directory_uri().'/assets/img/logo.png');
+        $dw_logo_small_image = dw_get_option( 'dw_small_logo_image', $logo_custom_image );
+        echo dw_get_option('dw_header_script');
     ?>
     <style type="text/css">
         .site-header #branding a {
             display: block;
             background: url(<?php echo $logo_custom_image; ?>) no-repeat center;
             text-indent: -9999px;
+        }
+        #colophon.dark #site-info .small-logo {
+            background-image: url(<?php echo $dw_logo_small_image; ?>);
+        }
+        @media ( max-width: 979px ) {
+            .wrap-navigation .small-logo {
+                background-image: url(<?php echo $dw_logo_small_image; ?>);
+            }
         }
     </style>
     <?php 
@@ -742,7 +746,7 @@ if( ! function_exists('dw_script_header') ) {
 if( ! function_exists('dw_script_footer') ){
     //Apply footer custom script
     function dw_script_footer() {
-        echo  ot_get_option('dw_footer_script','');
+        echo  dw_get_option('dw_footer_script','');
     }
     add_action( 'wp_footer', 'dw_script_footer' );
 }
@@ -781,11 +785,11 @@ if( ! function_exists('dw_top15') ) {
      * Get latest news of today or numbers of recent posts for megamenu if dont have any post on today
      */
     function dw_top15(){
-        $display_type = ot_get_option('dw_menu_display_type');
+        $display_type = dw_get_option('dw_menu_display_type');
         if( ! $display_type ) {
             $display_type = 'today';
         }
-        $max_number_posts = ot_get_option('dw_menu_number_posts');
+        $max_number_posts = dw_get_option('dw_menu_number_posts');
         if( ! $max_number_posts ) {
             $max_number_posts = 15;
         }
@@ -865,3 +869,65 @@ if( ! function_exists('dw_top15_filter_where') ) {
         return $where;
     }
 }
+
+/**
+ * PRINT SETUP
+ */
+function dw_add_class_for_print($classes) {
+    global $post;
+    $classes[] = 'content-print';
+    return $classes;
+}
+add_filter('post_class', 'dw_add_class_for_print');
+
+function dw_get_twitter_count($url){
+    $twittercount = json_decode( dw_file_get_content( 'http://urls.api.twitter.com/1/urls/count.json?url='.$url ) );
+    return isset($twittercount->count) ? $twittercount->count : 0;
+}
+function dw_get_facebook_count($url){
+    $facebookcount = json_decode( dw_file_get_content( 'http://graph.facebook.com/'.$url ) );
+    return isset($facebookcount->shares) ? $facebookcount->shares : 0;
+}
+function dw_get_linkedin_count($url){
+    $templinkedin = dw_file_get_content( 'http://www.linkedin.com/countserv/count/share?url='.$url );
+    $templinkedin = explode('(',$templinkedin);
+    $templinkedin = explode(',',$templinkedin[1]);
+    $templinkedin = explode(':',$templinkedin[0]);
+    $linkedincount = $templinkedin[1];
+    return isset($linkedincount) ? $linkedincount : 0;
+}
+// Added as requested in the comments
+function dw_get_pinterest_count($url){
+    $pincount = json_decode( dw_file_get_content( 'http://api.pinterest.com/v1/urls/count.json?callback=receiveCount&url='.$url ) );
+    return $pincount->count;
+}
+
+function dw_file_get_content( $url ){
+    $curl_handle=curl_init();
+    curl_setopt($curl_handle, CURLOPT_URL,$url);
+    curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
+    curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($curl_handle);
+    curl_close($curl_handle);
+    return $result;
+}
+
+function dw_exceprt_more( $excerpt ){
+    return '<a href="'.get_permalink().'" title="'.__( 'Read more', 'dw_focus' ).'" >...</a>';
+}
+add_filter( 'excerpt_more', 'dw_exceprt_more' );
+
+if( ! function_exists('dw_get_option') ) {
+    function dw_get_option( $option_id, $default = '', $update = false ){
+        /* get the saved options */ 
+        $options = get_option( 'option_tree' );
+        
+        /* look for the saved value */
+        if ( isset( $options[$option_id] ) ) {
+          return $options[$option_id];
+        }
+        return $default;    
+    }
+}
+
+?>
