@@ -118,23 +118,6 @@ function dw_focus_comment( $comment, $args, $depth ) {
 }
 endif; // ends check for dw_focus_comment()
 
-if ( ! function_exists( 'dw_focus_posted_on' ) ) :
-/**
- * Prints HTML with meta information for the current post-date/time and author.
- *
- * @since DW Focus 1.0
- */
-function dw_focus_posted_on() {
-	the_category();
-	printf( __( '<time class="entry-date" datetime="%3$s" pubdate>%4$s</time>', 'dw_focus' ),
-		esc_url( get_permalink() ),
-		esc_attr( get_the_time() ),
-		esc_attr( get_the_date( 'c' ) ),
-	 	get_the_date('c')
-	);
-}
-endif;
-
 /**
  * Returns true if a blog has more than 1 category
  *
@@ -213,3 +196,13 @@ if( ! function_exists('dw_focus_category_list_add_color_class') ) {
 	}
 	//add_filter( 'the_category', 'dw_focus_category_list_add_color_class' );
 }
+
+// Additional functions by Tom Nardi
+
+// Show big category buttons
+// Replaces "dw_focus_posted_on"
+if ( ! function_exists( 'dw_focus_get_category' ) ) :
+function dw_focus_get_category() {the_category();}
+endif;
+
+

@@ -12,7 +12,7 @@
 		<h1 class="entry-title"><?php the_title(); ?></h1>
 		
 		<div class="entry-meta">
-			<?php dw_focus_posted_on(); ?>
+			<?php dw_focus_get_category(); ?>
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 

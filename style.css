@@ -68,6 +68,11 @@ margin: 2px;
 background-image: none;
 }
 
+/* Remove glitchy category border */
+.single .site-content>.post .entry-meta {
+border-bottom: 0px;
+}
+
 /* Author avatar */
 .author-name { position:relative;} 
 
