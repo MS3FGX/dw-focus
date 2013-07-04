@@ -13,68 +13,51 @@ License URI: COPYING
 
 /* Widen layout */
 @media (min-width: 1200px) {
-#main > .container > .row {
-background-position: 760px 0;
-}
+#main > .container > .row {background-position: 760px 0;}
 
-#primary {
-width: 700px;
-}
+#primary {width: 700px;}
 
-.news-slider .carousel {
-width: 480px;
-}
+.news-slider .carousel {width: 480px;}
 
 .news-slider .carousel-inner,
 .news-slider .carousel .item,
-.news-slider .carousel .carousel-inner .hentry {
-height: 100%;
-}
+.news-slider .carousel .carousel-inner .hentry {height: 100%;}
 
-.news-slider .carousel-list {
-width: 219px;
-}
+.news-slider .carousel-list {width: 219px;}
 
-#secondary {
-width: 300px;
-}
+#secondary {width: 300px;}
 
-#secondary .entry-thumbnail img {
-width: 300px;
-}
+#secondary .entry-thumbnail img {width: 300px;}
 
-.single .site-content > .post .entry-content {
-max-width: 530px;
-}
+.single .site-content > .post .entry-content {max-width: 530px;}
 
 /* Enlarge logo area */
-.span3 .visible-desktop {
-width: 390px;
-}
+.span3 .visible-desktop {width: 390px;}
 
-.site-header #branding a {
+.site-header #branding a
+{
 margin: 0px;
 width: 390px;
 height: 100px;
 }
 
-#branding {
-width: 390px;
-}
+#branding {width: 390px;}
 
 /* Shrink margins, remove lined BG */
-.site-header #header {
+.site-header #header
+{
 margin: 2px;
 background-image: none;
 }
 
 /* Remove glitchy category border */
-.single .site-content>.post .entry-meta {
-border-bottom: 0px;
-}
+.single .site-content>.post .entry-meta {border-bottom: 0px;}
 
 /* Author avatar */
-.author-name { position:relative;} 
+.author-name {position:relative;} 
+
+/* Page navigation */
+.page-links {font-size: 22px;}
 
 /* End custom CSS */
 }
