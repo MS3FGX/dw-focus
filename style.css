@@ -11,19 +11,14 @@ License URI: COPYING
 
 /* Modified CSS here for easier maintenance */
 
-/* Widen layout */
-@media (min-width: 1200px) {
-#main > .container > .row {background-position: 760px 0;}
+/* Expand layout on displays 1200 wide or better*/
+@media (min-width: 1200px)
+{
+.container {width: 1140px;}
 
-#primary {width: 700px;}
+#main > .container > .row {background-position: 860px 0;}
 
-.news-slider .carousel {width: 480px;}
-
-.news-slider .carousel-inner,
-.news-slider .carousel .item,
-.news-slider .carousel .carousel-inner .hentry {height: 100%;}
-
-.news-slider .carousel-list {width: 219px;}
+#primary {width: 800px;}
 
 #secondary {width: 300px;}
 
@@ -50,6 +45,12 @@ margin: 2px;
 background-image: none;
 }
 
+/* Slide over search bar */
+#under-navigation .searchForm {margin: 0 0 0 -91px;}
+}
+
+/* Apply to all resolutions */
+
 /* Remove glitchy category border */
 .single .site-content>.post .entry-meta {border-bottom: 0px;}
 
@@ -60,4 +61,3 @@ background-image: none;
 .page-links {font-size: 22px;}
 
 /* End custom CSS */
-}
