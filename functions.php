@@ -731,15 +731,26 @@ if( ! function_exists('dw_script_header') ) {
         $dw_logo_small_image = dw_get_option( 'dw_small_logo_image', $logo_custom_image );
         echo dw_get_option('dw_header_script');
     ?>
-    <style type="text/css">
-        .site-header #branding a {
+    <style type="text/css">       
+	/* Default image, safe for low-res desktop */
+	.site-header #branding a {
             display: block;
-            background: url(<?php echo $logo_custom_image; ?>) no-repeat center;
+            background: url "/assets/img/logo.png" no-repeat center;
             text-indent: -9999px;
         }
         #colophon.dark #site-info .small-logo {
             background-image: url(<?php echo $dw_logo_small_image; ?>);
         }
+	/*Custom image on widescreen */
+	@media (min-width: 1200px)
+	{
+	.site-header #branding a
+	{
+        	display: block;
+		background: url(<?php echo $logo_custom_image; ?>) no-repeat center;
+		text-indent: -9999px;
+        }
+	}
         @media ( max-width: 979px ) {
             .wrap-navigation .small-logo {
                 background-image: url(<?php echo $dw_logo_small_image; ?>);
