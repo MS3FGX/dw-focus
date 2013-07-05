@@ -4,7 +4,7 @@ Theme URI: http://www.designwall.com/wordpress-theme/dw-focus
 Author: DesignWall & Tom Nardi
 Author URI: http://www.designwall.com
 Description: Fork of Design Wall's "DW Focus" Wordpress theme for "The Powerbase".
-Version: 1.3
+Version: 1.4
 License: GNU General Public License v2
 License URI: COPYING
 */
@@ -24,7 +24,7 @@ License URI: COPYING
 
 #secondary .entry-thumbnail img {width: 300px;}
 
-.single .site-content > .post .entry-content {max-width: 530px;}
+.single .site-content > .post .entry-content {max-width: 630px;}
 
 /* Enlarge logo area */
 .span3 .visible-desktop {width: 390px;}
