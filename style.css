@@ -26,6 +26,9 @@ License URI: COPYING
 
 .single .site-content > .post .entry-content {max-width: 630px;}
 
+/* Enlarge slider sidebar */
+.news-slider .carousel-list {width: 280px;}
+
 /* Enlarge logo area */
 .span3 .visible-desktop {width: 390px;}
 
