@@ -39,6 +39,17 @@ width: 390px;
 height: 100px;
 }
 
+/* Enables 3 banners at 230 x 100 each */
+/* Enlarge banner area */
+.span7
+{
+width: 700px;
+margin-left: 46px;
+}
+
+/* Shrink widget margins */
+#header .widget {margin-left: 16px;}
+
 #branding {width: 390px;}
 
 /* Shrink margins, remove lined BG */
