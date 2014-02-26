@@ -1,9 +1,6 @@
 <?php
 /**
  * Template Name: Blog
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 
 get_header(); ?>

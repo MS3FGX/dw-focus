@@ -37,14 +37,30 @@ class dw_focus_latest_headlines extends WP_Widget {
         if ( empty( $instance['number'] ) || ! $number = absint( $instance['number'] ) )
             $number = 10;
         $interval = isset($instance['interval']) ? $instance['interval'] : 5;
+
+        $categories = get_categories();
+        $cats = array();
+        foreach ($categories as $key => $value) {
+            if ( $value->parent == 0 ) {
+                $cats[] = $value->term_id;
+            } 
+        }
+
+        $cat = '';
+        if ( $instance['category'] == 0 ) {
+            $cat = implode(',',$cats);
+        } else {
+            $cat = $instance['category'];
+        }
+        
         $tax_query=array();
-       
+
         $r = new WP_Query( apply_filters( 'widget_posts_args', 
             array( 
                 'posts_per_page'    => $number, 
                 'no_found_rows'         => true, 
                 'post_status'           => 'publish', 
-                'cat'              => $instance['category']       
+                'cat'              => $cat
             ) ) );
 
           if ($r->have_posts()) :
@@ -60,7 +76,7 @@ class dw_focus_latest_headlines extends WP_Widget {
                 while ( $r->have_posts() ) {
                     $r->the_post();
             ?>
-                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><span class="time_diff"><?php echo ' - ' . human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago'; ?></span></li>
+                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><span class="time_diff"><?php echo ' - ' . dw_human_time_diff( get_the_time('U'), current_time('timestamp') ); ?></span></li>
             <?php } ?>     
             </ul>
         </div>

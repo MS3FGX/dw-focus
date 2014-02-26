@@ -71,6 +71,7 @@
             <div class="footer-shadown"></div>
         </div>
 
+        <!--FORK EDIT START-->
         <div id="site-info" class="container">
             <div class="clearfix">
                 <div class="copyright">
@@ -80,6 +81,7 @@
                 </div>
             </div>
         </div>
+        <!--FORK EDIT END-->
     </footer><!-- #colophon .site-footer -->
 <a class="scroll-top" href="#masthead" title="<?php _e( 'Scroll to top', 'dw-focus' ); ?>"><?php _e( 'Top', 'dw-focus' ); ?></a>
 

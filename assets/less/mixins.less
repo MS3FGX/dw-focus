@@ -119,8 +119,18 @@
 
             // top news
             // -------------------------
-            &.desktop .top-news .entry-meta {
-                background: @color;
+            &.desktop .top-news {
+                .entry-meta {
+                    background: @color;
+                }
+
+                .dropdown-menu a {
+                    &:hover,
+                    &:active,
+                    &:focus {
+                        color: @color !important;
+                    }
+                }
             }
 
             // news-tab
@@ -154,7 +164,7 @@
                 .entry-meta  {
                     a {
                         &:hover {
-                            color: @color;
+                            color: @color !important;
                         }
                     }
                 }
@@ -205,5 +215,11 @@
         &:hover:before {
             .animation(hoverthumb, 2s); 
         }
+    }
+
+    .ie8 & {
+        > a:before {
+            display: none;
+        } 
     }
 }

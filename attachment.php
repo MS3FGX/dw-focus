@@ -1,9 +1,6 @@
 <?php
 /**
  * The template for displaying image attachments.
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 
 get_header(); ?>
@@ -19,7 +16,7 @@ get_header(); ?>
 							$metadata = wp_get_attachment_metadata();
 							printf( __( '<span class="entry-date"><time class="entry-date" datetime="%1$s" pubdate>%2$s</time></span>', 'dw_focus' ),
 								esc_attr( get_the_date( 'c' ) ),
-								esc_html( get_the_date() )
+								echo dw_human_time()
 							);
 						?>
 					</div><!-- .entry-meta -->

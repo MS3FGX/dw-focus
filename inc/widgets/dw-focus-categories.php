@@ -1,9 +1,4 @@
 <?php  
-
-/**
- * @package DW Focus
- * @since DW Focus 1.0.2
- */
 class dw_focus_categories_Widget extends WP_Widget {
 
     /**
@@ -131,12 +126,11 @@ class dw_focus_categories_Widget extends WP_Widget {
                 $class_extend = 'hide';
             }
         ?>
-        <div class="categories_extend <?php echo $class_extend ?>">
-        <?php echo '<strong> First Block </strong>'; ?>
-        </div>
     <?php
         echo '<p>'.__('Select categories for showing content','dw_focus').'</p>';
 
+        echo '<div class="categories_extend ">';
+        echo '<strong class=" categories_3cols '.$class_extend.'"> First Block </strong>';
         wp_dropdown_categories( array(
             'id'    => $this->get_field_id('news-block-category-first'),
             'name'    => $this->get_field_name('news-block-category-first'),
@@ -146,8 +140,9 @@ class dw_focus_categories_Widget extends WP_Widget {
             'hierarchical'  => true,
             'walker'    => new DW_Walker_CategoryDropdown()
         ) ); 
+        echo '</div>';
 
-        echo '<div class="categories_extend '.$class_extend.'">';
+        echo '<div class="categories_extend categories_3cols '.$class_extend.'">';
         echo '<strong> Second Block </strong>';
         wp_dropdown_categories( array(
             'id'    => $this->get_field_id('news-block-category-second'),
@@ -160,7 +155,7 @@ class dw_focus_categories_Widget extends WP_Widget {
         ) );
         echo '</div>';
         
-        echo '<div class="categories_extend '.$class_extend.'">';
+        echo '<div class="categories_extend categories_3cols '.$class_extend.'">';
         echo '<strong> Third Block </strong>';
         wp_dropdown_categories( array(
             'id'    => $this->get_field_id('news-block-category-third'),
@@ -180,7 +175,7 @@ class dw_focus_categories_Widget extends WP_Widget {
         $category = get_category($category_id);
         if( empty($category) || is_wp_error($category) ) {
             $category_name = __('All','dw_focus');
-        }else{
+        } else {
             $category_name = $category->name;
         }
 
@@ -248,15 +243,36 @@ class dw_focus_categories_Widget extends WP_Widget {
                     <?php } ?>
 
                     <?php if( isset( $instance['meta'] ) && $instance['meta'] ) { ?>
-                        <p class="entry-meta">
+                        <div class="entry-meta">
                         <?php 
-                            if( isset( $instance['date'] ) && $instance['date'] ) { 
-                                echo get_the_date('c');
+                            if( isset( $instance['date'] ) && $instance['date'] ) {
+                                echo '<div>'.dw_human_time().'</div>'; 
                             }
                         ?>
-                        </p>
-                    <?php } ?>
 
+                        <?php 
+                            if( isset( $instance['author'] ) && $instance['author'] ) {
+                                _e('by','dw-focus');
+                                ?>
+                                <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author"><?php echo get_the_author(); ?></a>
+                                <?php
+                            }
+                        ?>
+
+                        <?php 
+                            if( isset( $instance['cat'] ) && $instance['cat'] ) {
+                                $categories_list = get_the_category_list( __( ', ', 'dw_focus' ) );
+                                    if ( $categories_list && dw_focus_categorized_blog() ) :
+                                ?>
+                                <span class="cat-links">
+                                    <?php printf( __( '<span> on </span>%1$s', 'dw_focus' ), $categories_list ); ?>
+                                </span>
+                                <?php
+                                endif;
+                            }
+                        ?>
+                        </div>
+                    <?php } ?>
 
                     <h2 class="entry-title">
                         <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'dw_focus' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
@@ -327,15 +343,36 @@ class dw_focus_categories_Widget extends WP_Widget {
             <?php } ?>
 
             <?php if( isset( $instance['meta'] ) && $instance['meta'] ) { ?>
-                <p class="entry-meta">
+                <div class="entry-meta">
                 <?php 
-                    if( isset( $instance['date'] ) && $instance['date'] ) { 
-                        echo get_the_date('c');
+                    if( isset( $instance['date'] ) && $instance['date'] ) {
+                        echo '<div>'.dw_human_time().'</div>'; 
                     }
                 ?>
-                </p>
-            <?php } ?>
 
+                <?php 
+                    if( isset( $instance['author'] ) && $instance['author'] ) {
+                        _e('by','dw-focus');
+                        ?>
+                        <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author"><?php echo get_the_author(); ?></a>
+                        <?php
+                    }
+                ?>
+
+                <?php 
+                    if( isset( $instance['cat'] ) && $instance['cat'] ) {
+                        $categories_list = get_the_category_list( __( ', ', 'dw_focus' ) );
+                            if ( $categories_list && dw_focus_categorized_blog() ) :
+                        ?>
+                        <span class="cat-links">
+                            <?php printf( __( '<span> on </span>%1$s', 'dw_focus' ), $categories_list ); ?>
+                        </span>
+                        <?php
+                        endif;
+                    }
+                ?>
+                </div>
+            <?php } ?>
 
             <h2 class="entry-title">
                 <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'dw_focus' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>

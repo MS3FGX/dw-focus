@@ -1,12 +1,11 @@
 <?php  
 function dw_focus_customize_register($wp_customize){
-
     $wp_customize->add_section( 'dw_focus_general_settings' , array(
         'title'      => __( 'General Settings', 'dw_focus' ),
         'priority'   => 10,
     ) );
+
     //Select Layout
-    //  Logo Image
     $wp_customize->add_setting('option_tree[dw_layout]', array(
         'default'           => dw_get_option('dw_layout'),
         'capability'        => 'edit_theme_options',
@@ -35,7 +34,7 @@ function dw_focus_customize_register($wp_customize){
     ));
  
     $wp_customize->add_control( new dw_customize_textarea($wp_customize, 'dw_header_script', array(
-        'label'    => __('DW Focus header script', 'dw_focus'),
+        'label'    => __('Custom wp_head() code:', 'dw_focus'),
         'section'  => 'dw_focus_general_settings',
         'settings' => 'option_tree[dw_header_script]'
     )));
@@ -45,18 +44,17 @@ function dw_focus_customize_register($wp_customize){
         'default'               => '',
         'capability'            => 'edit_theme_options',
         'type'                  => 'option',
- 
+
     ));
  
     $wp_customize->add_control( new dw_customize_textarea($wp_customize, 'dw_footer_script', array(
-        'label'    => __('DW Focus footer script', 'dw_focus'),
+        'label'    => __('Custom wp_footer() code:', 'dw_focus'),
         'section'  => 'dw_focus_general_settings',
         'settings' => 'option_tree[dw_footer_script]'
     )));
 
-    //New section
-    //Site title & Tag line
-     //  Logo Image
+    // Site title & Tag line
+    // Logo Image
     $wp_customize->add_setting('option_tree[dw_logo_image]', array(
         'default'               => get_template_directory_uri().'/assets/img/logo.png',
         'capability'            => 'edit_theme_options',
@@ -84,13 +82,27 @@ function dw_focus_customize_register($wp_customize){
         'settings' => 'option_tree[dw_small_logo_image]'
     )));
 
+    // Favicon
+    $wp_customize->add_setting('option_tree[dw_favicon]', array(
+        'capability' => 'edit_theme_options',
+        'type' => 'option',
+    ));
+
+    $wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'favicon', array(
+        'label' => __('Site Favicon', 'dw-focus'),
+        'section' => 'title_tagline',
+        'settings' => 'option_tree[dw_favicon]',
+    )));
+
     // New section
+    // Post Navigation Technique
     $wp_customize->add_setting('option_tree[nav_type]', array(
         'default'        => 'loadmore',
         'capability'     => 'edit_theme_options',
         'type'           => 'option',
  
     ));
+
     $wp_customize->add_control( 'dw_blog_navigation_select_box', array(
         'settings' => 'option_tree[nav_type]',
         'label'   => __( 'Post Navigation Technique', 'dw_focus'),
@@ -102,7 +114,7 @@ function dw_focus_customize_register($wp_customize){
         ),
     ));
 
-    // Select default listing for  News on Menu
+    // Select default listing for News on Menu
     $wp_customize->add_setting('option_tree[dw_menu_display_type]', array(
         'default'        => dw_get_option('dw_menu_display_type'),
         'capability'     => 'edit_theme_options',
@@ -116,7 +128,8 @@ function dw_focus_customize_register($wp_customize){
         'type'    => 'select',
         'choices'    => array(
             'today'     => __('Display latest news Today', 'dw_focus'),
-            'latest'  => __('Display latest news of the Site', 'dw_focus')
+            'latest'  => __('Display latest news of the Site', 'dw_focus'),
+            'hide' => __('Hide latest news Today', 'dw_focus')
         ),
     ));
 
@@ -134,8 +147,7 @@ function dw_focus_customize_register($wp_customize){
         'settings'   => 'option_tree[dw_menu_number_posts]',
     ));
 
-
-    // New section
+    // New section category 
     $wp_customize->add_section('dw_category_settings', array(
         'title'    => __('Category settings', 'dw_focus'),
         'priority' => 123,
@@ -159,9 +171,27 @@ function dw_focus_customize_register($wp_customize){
         ),
     )));
 
-    // New section
+    // New section Style selector
+    $wp_customize->add_section('dw_primary_color', array(
+        'title'    => __('Style Selector', 'dw-focus'),
+        'priority' => 120,
+    ));
+
+    $wp_customize->add_setting('option_tree[dw_custom_color]', array(
+        'default'        => '',
+        'capability'     => 'edit_theme_options',
+        'type'           => 'option',
+    ));
+    
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'dw_custom_color', array(
+        'label'        => __( 'Custom Color', 'dw-focus' ),
+        'section'    => 'dw_primary_color',
+        'settings'   => 'option_tree[dw_custom_color]',
+    )));
+
+    // New section social link
     $wp_customize->add_section('dw_social_link', array(
-        'title'    => __('Social Links', 'themename'),
+        'title'    => __('Social Links', 'dw-focus'),
         'priority' => 124,
     ));
 
@@ -174,7 +204,7 @@ function dw_focus_customize_register($wp_customize){
     $wp_customize->add_control('enable_login_link', array(
         'default'        => true,
         'settings'  => 'option_tree[dw_loginlink]',
-        'label'     => __('Enable login link'),
+        'label'     => __('Enable login link','dw-focus'),
         'section'   => 'dw_social_link',
         'type'      => 'checkbox',
     ));
@@ -188,7 +218,7 @@ function dw_focus_customize_register($wp_customize){
     $wp_customize->add_control('enable_feed_link', array(
         'default'        => true,
         'settings'  => 'option_tree[dw_feedlink]',
-        'label'     => __('Enable feed link'),
+        'label'     => __('Enable feed link','dw-focus'),
         'section'   => 'dw_social_link',
         'type'      => 'checkbox',
     ));
@@ -206,6 +236,7 @@ function dw_focus_customize_register($wp_customize){
         'section'    => 'dw_social_link',
         'settings'   => 'option_tree[dw_facebook]',
     ));
+
     // Twitter social
     $wp_customize->add_setting('option_tree[dw_twitter]', array(
         'default'        => dw_get_option('dw_twitter'),
@@ -219,6 +250,7 @@ function dw_focus_customize_register($wp_customize){
         'section'    => 'dw_social_link',
         'settings'   => 'option_tree[dw_twitter]',
     ));
+
     // Goole plus social
     $wp_customize->add_setting('option_tree[dw_gplus]', array(
         'default'        => '',
@@ -232,6 +264,7 @@ function dw_focus_customize_register($wp_customize){
         'section'    => 'dw_social_link',
         'settings'   => 'option_tree[dw_gplus]',
     ));
+
     // Linkedin social
     $wp_customize->add_setting('option_tree[dw_linkedin]', array(
         'default'        => '',
@@ -247,7 +280,7 @@ function dw_focus_customize_register($wp_customize){
     ));
 
 
-    // New section
+    // New section blog
     $wp_customize->add_section('dw_blog_settings', array(
         'title'    => __('Blog settings', 'dw_focus'),
         'priority' => 125,
@@ -319,4 +352,3 @@ function nex_setting_field_footer_script(){
 <?php 
 }
 
-?>

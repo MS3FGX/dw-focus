@@ -56,7 +56,7 @@ function dw_focus_widgets_init() {
         'name' => __( 'Header', 'dw_focus' ),
         'id' => 'dw_focus_header',
         'description'   =>  __('Use to display widgets in header', 'dw_focus'),
-        'before_widget' => '<aside id="%1$s" class="widget %2$s span3">',
+        'before_widget' => '<aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside>',
         'before_title' => '<h3 class="widget-title">',
         'after_title' => '</h3>',
@@ -153,17 +153,17 @@ class DW_Walker_CategoryDropdown extends Walker {
      * @param int $depth Depth of category. Used for padding.
      * @param array $args Uses 'selected' and 'show_count' keys, if they exist.
      */
-    function start_el( &$output, $category, $depth, $args, $id = 0 ) {
+    function start_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
         $pad = str_repeat('&#8211;', $depth * 2);
 
-        $cat_name = apply_filters('list_cats', $category->name, $category);
-        $output .= "\t<option class=\"level-$depth\" value=\"".$category->term_id."\"";
-        if ( $category->term_id == $args['selected'] )
+        $cat_name = apply_filters('list_cats', $object->name, $object);
+        $output .= "\t<option class=\"level-$depth\" value=\"".$object->term_id."\"";
+        if ( $object->term_id == $args['selected'] )
             $output .= ' selected="selected"';
         $output .= '>';
         $output .= $pad.$cat_name;
         if ( $args['show_count'] )
-            $output .= '&nbsp;&nbsp;('. $category->count .')';
+            $output .= '&nbsp;&nbsp;('. $object->count .')';
         $output .= "</option>\n";
     }
 }

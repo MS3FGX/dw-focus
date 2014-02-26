@@ -1,0 +1,41 @@
+[class*="dwqa-question"] #main > .container > .row {
+  background: none;
+}
+.single-dwqa-question .answers-list {
+	margin-left: 25px;
+}
+
+.dw-question .questions-wrap .filter-bar .btn {
+	top: 16px;
+}
+
+.dw-question #respond input[type="submit"],
+.dw-question .login-box input[type="submit"] {
+	background-color: #000000;
+	border: 1px solid #000000;
+	color: #ffffff;
+	font-family: "NovecentowideNormalRegular", Georgia, "Times New Roman", Times, serif;
+	font-size: 11px;
+	height: 30px;
+	line-height: 30px;
+	outline: medium none !important;
+	padding: 0 12px;
+	text-shadow: none;
+	text-transform: uppercase;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;	
+}
+
+.dw-question #respond input[type="submit"]:hover,
+.dw-question .login-box input[type="submit"]:hover {
+	background-color: #ee3224;
+	border: 1px solid #ee3224;
+}
+
+.dw-question #loginform .input {
+    height: 30px;
+}

@@ -1,9 +1,6 @@
 <?php
 /**
  * The template for displaying content on the search page.
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
     
     $class = '';

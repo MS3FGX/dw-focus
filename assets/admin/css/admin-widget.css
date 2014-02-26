@@ -1,42 +1,17 @@
-.hide{
+.dw-widget-extends .description {
+    margin-top: 10px;
+}
+
+.dw-widget-extends [name="savewidget"] {
     display: none;
 }
 
-.dw_focus_category_checklist{
-    background-color: white;
-    padding: 10px;
-    border-radius: 5px;
-    max-height: 100px;
-    overflow-y: scroll;
-    border: 1px solid #dfdfdf;
-
+.categories_extend {
+    margin: 1em 0;
 }
 
-.dw_focus_category_checklist input[type="radio"]{
-    visibility: hidden;
-}
-
-.dw_focus_category_checklist li label{
-    width: 100%;
-    display: inline-block;
-}
-.dw_focus_category_checklist li label.active {
-    background-color: #eee;
-}
-
-.dw_focus_category_checklist li label:hover{
-    background-color: #eee;
-}
-
-.dw-focus-widget-extends{
-    min-height: 100px;
-    background-color: #fcfcfc;
-}
-
-.dw-focus-widget-extends .widget-placeholder,
-.dw-focus-widget-extends .widget,
-.dw-focus-widget-extends .sidebar-description{
-    width: 100%;
+.hide{
+    display: none;
 }
 
 .poll-choices p{

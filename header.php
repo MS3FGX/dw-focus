@@ -3,9 +3,6 @@
  * The Header for our theme.
  *
  * Displays all of the <head> section and everything up till <div id="main">
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -33,16 +30,15 @@
 		                </h1>
 		            </div>
 		            <?php if( is_active_sidebar( 'dw_focus_header' ) ) { ?>
-		            <div id="sidebar-header" class="span7">
-		            	<div class="row">
-		            		<?php dynamic_sidebar('dw_focus_header'); ?>
-		            	</div>
+		            <div id="sidebar-header" class="span7"> <!--FORK EDIT-->
+	            		<?php dynamic_sidebar('dw_focus_header'); ?>
 		            </div>
 		            <?php } ?>
 		        </div>
 	        </div>
 	        <?php 
-	        	if( !is_handheld() ) :
+	        	$dw_menu_post = dw_get_option('dw_menu_display_type');
+	        	if( !is_handheld() && $dw_menu_post != 'hide') :
 			        $max_number_posts = dw_get_option('dw_menu_number_posts');
 			        if( ! $max_number_posts ) {
 			            $max_number_posts = 15;
@@ -112,7 +108,6 @@
 							  	    'theme_location'  => 'primary',
 									'container'       => '',
 									'menu_class'      => 'nav',
-									'depth'           => 2,
 									'fallback_cb'    => 'link_to_menu_editor'
 							  	);
 

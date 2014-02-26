@@ -1,9 +1,6 @@
 <?php  
 /**
  * The Sidebar containing the widgets for category page
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 ?>
 

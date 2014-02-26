@@ -21,7 +21,7 @@
 
 .single {
 	.site-content {
-		> .post {
+		> .hentry {
 			.entry-meta {
 				border-bottom: 1px solid @grayLighter;
 				margin-bottom: 20px;
@@ -159,8 +159,7 @@
 					.google,
 					.linkedin {
 						i {
-							font-size: 16px;
-							margin-left: -2px;
+							font-size: 16px;	
 							vertical-align: top;
 						}
 					}
@@ -285,7 +284,7 @@
 				font-family: @serifFontFamily;
 			}
 
-			.type-post {
+			.hentry {
 				width: 30%;
 				float: left;
 				margin-left: 5%;
@@ -378,11 +377,11 @@
 		font-size: 15px;
 		line-height: 22.5px;
 
-		alignleft,
-		alignright {
+		.alignleft,
+		.alignright {
 			&img {
 				margin-top: 6px;
-				marginbottom: 5px;
+				margin-bottom: 5px;
 			}
 		}
 
@@ -481,6 +480,7 @@
 	border-top: 1px solid @grayLighter;
 	margin-top: 25px;
 	overflow: hidden;
+	clear: both;
 
 	.comments-title,
 	#reply-title small {

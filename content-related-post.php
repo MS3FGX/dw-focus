@@ -1,9 +1,6 @@
 <?php
 /*
  * The template for displaying the content of related post on the single page.
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 ?>
 

@@ -3,9 +3,6 @@
  * The template for displaying category pages.
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 
 get_header(); ?>

@@ -1,11 +1,7 @@
 <?php
 /**
  * The template for displaying 404 pages (Not Found).
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
-
 ?>
 
 <!DOCTYPE html>

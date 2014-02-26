@@ -1,9 +1,6 @@
 <?php
 /**
  * Template Name: Typography
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 
 get_header(); ?>

@@ -96,7 +96,7 @@ class DW_Mega_Walker extends Walker_Nav_Menu
 							if( has_post_thumbnail()) {
 							 $output.= "class='has-thumbnail' ";
 							}
-							$output.= "><div class='subcat-thumbnail'><a href='".get_permalink()."' title='".get_the_title()."'>".get_the_post_thumbnail( get_the_ID(), array(40,40))."</a></div><div class='subcat-title'><a href='".get_permalink()."' title='".get_the_title()."'> ".get_the_title()."</a><span> - ". human_time_diff( get_the_time('U'), current_time('timestamp') ) ." ago </span></div></li>";
+							$output.= "><div class='subcat-thumbnail'><a href='".get_permalink()."' title='".get_the_title()."'>".get_the_post_thumbnail( get_the_ID(), array(40,40))."</a></div><div class='subcat-title'><a href='".get_permalink()."' title='".get_the_title()."'> ".get_the_title()."</a><span> - ". dw_human_time_diff( get_the_time('U'), current_time('timestamp') ) ."</span></div></li>";
 					            } 
 					        // Reset the global $the_post as this query will have stomped on it
 					        wp_reset_postdata();

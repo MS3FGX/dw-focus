@@ -1,11 +1,4 @@
 <?php
-/**
- * @package DW Focus
- * @since DW Focus 1.0.2
- */
-?>
-
-<?php
     $class = '';
 
     if( has_post_thumbnail() && ! has_post_format('video') && ! has_post_format('audio') && ! has_post_format('gallery') ) {
@@ -28,7 +21,7 @@
             <h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'dw_focus' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
 
             <div class="entry-meta entry-meta-top">
-                <span><?php echo get_the_date('c'); ?></span>
+                <span><?php echo dw_human_time(); ?></span>
 
                 <span class="author">by <?php the_author_posts_link(); ?> </span>
                 
@@ -45,8 +38,8 @@
             <?php
                 global $more;
                 $more = 0;
+                the_content( '...' );
             ?>
-            <?php the_content('...'); ?>
         </div><!-- .entry-content -->
 
         <footer class="entry-meta entry-meta-bottom">

@@ -89,11 +89,23 @@ function dw_focus_comment( $comment, $args, $depth ) {
 					printf( '<cite class="fn">%1$s </cite>',
 						get_comment_author_link()
 					);
+					
+					$comment_time_diff = '- ';
+
+					$comment_time_mins = stristr( human_time_diff( get_comment_date('U'), current_time('timestamp')), 'mins' );
+					$comment_time_hour = stristr( human_time_diff( get_comment_date('U'), current_time('timestamp')), 'hour' );
+
+					if ($comment_time_mins == 'mins' || $comment_time_hour == 'hour') {
+						$comment_time_diff .= human_time_diff( get_comment_date('U'), current_time('timestamp')) . ' ago' ;
+					} else {
+						$comment_time_diff .= get_comment_date();
+					}
+
 					printf( '<a href="%1$s"><time datetime="%2$s">%3$s</time></a> said:',
 						esc_url( get_comment_link( $comment->comment_ID ) ),
 						get_comment_time( 'c' ),
 						/* translators: 1: date, 2: time */
-						get_comment_time( 'c' )
+						$comment_time_diff
 					);
 					
 				?>
@@ -197,12 +209,7 @@ if( ! function_exists('dw_focus_category_list_add_color_class') ) {
 	//add_filter( 'the_category', 'dw_focus_category_list_add_color_class' );
 }
 
-// Additional functions by Tom Nardi
-
-// Show big category buttons
-// Replaces "dw_focus_posted_on"
-if ( ! function_exists( 'dw_focus_get_category' ) ) :
-function dw_focus_get_category() {the_category();}
+// FORK EDIT
+if ( ! function_exists( 'dw_focus_posted_on' ) ) :
+function dw_focus_posted_on() {the_category();}
 endif;
-
-

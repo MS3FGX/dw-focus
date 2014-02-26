@@ -1,9 +1,6 @@
 <?php
 /**
  * The Sidebar containing the main widget areas.
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 ?>
 	

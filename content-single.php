@@ -1,9 +1,6 @@
 <?php
 /*
  * The template for displaying content on the search page.
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 ?>
 
@@ -12,7 +9,7 @@
 		<h1 class="entry-title"><?php the_title(); ?></h1>
 		
 		<div class="entry-meta">
-			<?php dw_focus_get_category(); ?>
+			<?php dw_focus_posted_on(); ?>
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 

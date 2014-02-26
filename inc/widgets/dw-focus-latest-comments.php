@@ -1,9 +1,6 @@
 <?php 
 /**
  * WP_Widget_Dw_Recent_Comments widget class
- *
- * @package DW Focus
- * @since DW Focus 1.0.2
  */
 
 class WP_Widget_Dw_Recent_Comments extends WP_Widget {
@@ -60,7 +57,7 @@ class WP_Widget_Dw_Recent_Comments extends WP_Widget {
 			foreach ( (array) $comments as $comment) {
 				$output .=  '<li class="dw_recentcomments">'. get_avatar( $comment->comment_author_email, '60' ) . /* translators: comments widget: 1: comment author, 2: post link */ 
 				sprintf(_x('<div class="comment-info"> <span class="comment-date">%1$s</span><span class="comment-title">on %2$s</span><span class="comment-author">by %3$s</span></div>', 'widgets', 'dw-focus'),
-					get_comment_time( 'c' ),
+					get_comment_date(),
 					'<a href="' . esc_url( get_comment_link($comment->comment_ID) ) . '">' . get_the_title($comment->comment_post_ID) . '</a>',
 					get_comment_author_link()
 					) 

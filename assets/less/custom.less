@@ -2,8 +2,7 @@
 // Site Header
 // --------------------------------------------------
 .site-header {
-	#header {
-		background: url(../img/sl-3-270-ddd.gif) repeat-y center;
+	#header { 
 		margin: 20px 0;
 	}
 
@@ -21,9 +20,10 @@
 		text-indent: -9999px;
 		background-image: url(../img/logo.png);
 		background-repeat: no-repeat;
-		background-position: 0 center !important; 
-		height: 80px;
+		background-position: left center !important; 
+		height: 90px;
         width: 230px;
+        .background-size( 100% );
 	}
 }
 
@@ -280,7 +280,7 @@
 		    border: 1px solid #ccc;
 		    text-align: center;
 		    font-family: FontAwesome;
-		    font-size: 8px;
+		    font-size: 9px;
 		    color: @black;
 			.border-radius(500px);
 		}
@@ -311,7 +311,7 @@
 
 		p {
 			margin: 0;
-		}
+		} 
 
 		.copyright {
 			float: left;
@@ -326,12 +326,13 @@
 		.small-logo {
 			display: block;
 			text-indent: -9999px;
-			background: url(../img/logo-small.png) no-repeat;
-			height: 25px;
+			background: url(../img/logo-small.png) no-repeat right center;
+			height: 40px;
 			width: 100px;
 			.transition(opacity .5s);
+			.background-size( 100% auto );
 
-			&:hover {
+			&:hover { 
 				.opacity(70);
 			}
 		}
@@ -376,7 +377,9 @@
 	}
 
 	#sidebar-footer {
-		background-image: url(../img/sl-6-130-222.gif);
+		.widget:before {
+            background: @grayDarker;
+        }
 
 		.widget-title  {
 			color: @white;

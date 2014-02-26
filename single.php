@@ -1,9 +1,6 @@
 <?php
 /**
  * The Template for displaying all single posts.
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 
 
@@ -21,13 +18,13 @@ get_header(); ?>
 
 	<?php
 		$tags = wp_get_post_tags( get_the_ID() );
-		
+
 		if ($tags) {
 			$tag_ids = array();
 			foreach($tags as $individual_tag) $tag_ids[] = $individual_tag->term_id;
 			$args=array(
 			'tag__in' => $tag_ids,
-			'post__not_in' => array($post->ID),
+			'post__not_in' => array(get_the_ID()),
 			'posts_per_page'=>3, // Number of related posts to display.
 			'ignore_sticky_posts'=>1
 			);
@@ -56,6 +53,5 @@ get_header(); ?>
 		<?php comments_template( '', true ); ?>
 	<?php } ?>
 	</div>
-					
 <?php get_sidebar( 'single' ); ?>
 <?php get_footer(); ?>

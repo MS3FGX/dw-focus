@@ -1,9 +1,6 @@
 <?php  
 /**
  * dw_focus_recents_posts_Widget widget class
- *
- * @package DW Focus
- * @since DW Focus 1.0.2
  */
 class dw_focus_recents_posts_Widget extends WP_Widget {
 
@@ -61,19 +58,41 @@ class dw_focus_recents_posts_Widget extends WP_Widget {
                 <?php } ?>
 
                 <?php if( isset( $instance['meta'] ) && $instance['meta'] ) { ?>
-                <p class="entry-meta">
-                <?php 
+                <div class="entry-meta">
+                <?php
                     if( isset( $instance['date'] ) && $instance['date'] ) { 
-                        echo  get_the_date();
+                        echo '<div>'. dw_human_time() .'</div>';
                     }
                 ?>
-                </p>
+
+                <?php 
+                    if( isset( $instance['author'] ) && $instance['author'] ) {
+                        _e('by','dw-focus');
+                        ?>
+                        <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author"><?php echo get_the_author(); ?></a>
+                        <?php
+                    }
+                ?>
+
+                <?php 
+                    if( isset( $instance['cat'] ) && $instance['cat'] ) {
+                        $categories_list = get_the_category_list( __( ', ', 'dw_focus' ) );
+                            if ( $categories_list && dw_focus_categorized_blog() ) :
+                        ?>
+                        <span class="cat-links">
+                            <?php printf( __( '<span> on </span>%1$s', 'dw_focus' ), $categories_list ); ?>
+                        </span>
+                        <?php
+                        endif;
+                    }
+                ?>
+
+                </div>
                 <?php } ?>
 
                 <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                 
-                <?php if( isset($instance['post_excerpt']) 
-                                && $instance['post_excerpt'] ) {  ?>
+                <?php if( isset($instance['post_excerpt']) && $instance['post_excerpt'] ) {  ?>
                 <div class="entry-content"><?php the_excerpt(); ?></div>
                 <?php } ?>
             </article>
@@ -136,16 +155,39 @@ class dw_focus_recents_posts_Widget extends WP_Widget {
 
                 <?php if( isset( $instance['meta'] ) && $instance['meta'] ) { ?>
                 <div class="entry-meta">
-                    <?php 
+                <?php
                     if( isset( $instance['date'] ) && $instance['date'] ) { 
-                        echo get_the_date();
+                        echo '<div>'.dw_human_time().'</div>';
                     }
                 ?>
+
+                <?php 
+                    if( isset( $instance['author'] ) && $instance['author'] ) {
+                        _e('by','dw-focus');
+                        ?>
+                        <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author"><?php echo get_the_author(); ?></a>
+                        <?php
+                    }
+                ?>
+
+                <?php 
+                    if( isset( $instance['cat'] ) && $instance['cat'] ) {
+                        $categories_list = get_the_category_list( __( ', ', 'dw_focus' ) );
+                            if ( $categories_list && dw_focus_categorized_blog() ) :
+                        ?>
+                        <span class="cat-links">
+                            <?php printf( __( '<span> on </span>%1$s', 'dw_focus' ), $categories_list ); ?>
+                        </span>
+                        <?php
+                        endif;
+                    }
+                ?>
+
                 </div>
                 <?php } ?>
                 
                 <h2 class="entry-title"><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></h2>   
-
+                
                 <?php if( isset($instance['post_excerpt']) && $instance['post_excerpt'] ) {  ?>
                 <div class="entry-content"><?php the_excerpt(); ?></div>
                 <?php } ?>

@@ -6,9 +6,6 @@
  * and the comment form. The actual display of comments is
  * handled by a callback to dw_focus_comment() which is
  * located in the functions.php file.
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 ?>
 

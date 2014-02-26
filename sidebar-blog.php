@@ -1,9 +1,6 @@
 <?php  
 /**
  * The Sidebar containing the widgets for blog page.
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 ?>
 

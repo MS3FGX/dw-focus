@@ -631,17 +631,20 @@ input[type="color"],
             position: relative;
 
             > .sub-menu {
-                max-height: 0;
+                clip: rect(0, 1000px, 0, 0);
                 z-index: 1001;
                 position: absolute;
-                width: 150px;
                 background: @white;
-                overflow: hidden;
                 margin-left: -1px;
+                border: 1px solid @grayLighter;
+                padding: 10px 0;
+                .box-shadow(0 10px 10px rgba(0, 0, 0, 0.15));
 
                 li {
                     border-left: none;
                     width: 100%;
+                    padding: 0 20px;
+                    width: 150px;
                 }
 
                 a {
@@ -651,16 +654,36 @@ input[type="color"],
             }
         }
 
-        .menu-parent-item:hover > .sub-menu {
-            max-height: 1000px;
-            border: 1px solid @grayLighter;
-            padding: 10px 20px;
-            .transition( max-height 1s);
-            .box-shadow(0 10px 10px rgba(0, 0, 0, 0.15));
+        > li > .sub-menu li {
+            position: relative;
         }
 
+        > li > .sub-menu .menu-parent-item>a:after {
+            content: "\f0da"; 
+        }
 
-        .sub-menu-left {
+        > li > .sub-menu .sub-menu {
+            position: absolute;
+            left: 190px;
+            top: -11px;
+            background: @white;
+            border: 1px solid @grayLighter;
+            padding: 10px 0;
+            clip: rect(0, 0, 1000px, 0);
+            .box-shadow(0 10px 10px rgba(0, 0, 0, 0.05));
+        }
+
+        .menu-parent-item:hover > .sub-menu {
+            clip: rect(0, 1000px, 1000px, -1000px);
+            .transition( clip 1s);
+        }
+
+        .sub-menu-left .sub-menu {
+            right: 190px !important;
+            left: auto !important;
+        }
+
+        > .sub-menu-left {
             &:last-child {
                 border-right: 1px solid @grayLighter;
 
@@ -669,18 +692,18 @@ input[type="color"],
                 }    
             }
 
-            > .sub-menu {
-                right: 0;
+            >  .sub-menu {
+                right: 0 !important;
+                left: auto !important;
             }
-        }
-
+        }        
 
         // sub mega nav
         .menu-item-object-category {
             position: relative;
 
             .sub-mega-wrap {
-                max-height: 0;
+                clip: rect(0, 1000px, 0, 0);
                 z-index: 1001;
                 position: absolute;
                 width: 500px;
@@ -731,6 +754,14 @@ input[type="color"],
                         font-family: @serifFontFamily;
                         padding: 5px 0;
                     }
+
+                    a:after {
+                        content: "";
+                    }
+
+                    .sub-menu {
+                        display: none;
+                    }
                 }
 
                 .subcat {
@@ -760,6 +791,7 @@ input[type="color"],
                         .subcat-thumbnail {
                             float: left;
                             margin-top: 2px;
+                            width: 40px; 
                         }
 
                         .subcat-title {
@@ -797,10 +829,10 @@ input[type="color"],
         }
 
         .menu-parent-item:hover .sub-mega-wrap {
-            max-height: 1000px;
+            clip: rect(0, 1000px, 1000px, 0);
             border: 1px solid @grayLighter;
+            .transition( clip 1s);
             .box-shadow(0 10px 10px rgba(0, 0, 0, 0.15));
-            .transition( max-height 1s);
 
         }
 

@@ -42,6 +42,68 @@
 	overflow: hidden;
 }
 
+// Widget calendar
+// -------------------------
+.widget_calendar {
+	#wp-calendar {
+		width: 100%;
+		text-align: center;
+	}
+
+	caption {
+		padding: 7px;
+		border-width: 1px 1px 0;
+		border-color: @grayLighter;
+		border-style: solid;
+		font-weight: bold;
+	}
+
+	th, td {
+		padding: 4px;
+		border: 1px solid @grayLighter;
+	}
+
+	#today {
+		background: #eee;
+	}
+
+	a {
+		font-weight: bold;
+	}
+}
+
+.site-footer.dark {
+	.widget_calendar {
+
+		caption,
+		#today {
+			background: #151515;
+		}
+
+		caption, th, td {
+			border-color: @grayDarker;
+		}
+	}
+}
+
+// widgets-sidebar-header
+// -------------------------
+.widgets-sidebar-header {
+	.widget {
+		position: relative;
+		overflow: visible;
+	}
+
+	.widget:before {
+		content: "";
+		height: 100%;
+		width: 1px;
+		border-left: 1px solid @grayLighter;
+		position: absolute;
+		left: -20px;
+	}
+}
+
 // Ads 60
 // -------------------------
 .ads-60 {
@@ -113,7 +175,7 @@
 
 		img {
 			display: block;
-			width: 100%;
+			width: 100%; 
 			height: auto;
 		}
 	}
@@ -130,8 +192,8 @@
 // -------------------------
 .ads-230 {
 	overflow: hidden;
-	margin-top: 10px;
-	padding-top: 15px;
+	margin-top: 20px;
+	padding-top: 20px;
 	border-top: 1px solid @grayLighter;
 
 	&:first-child {
@@ -160,8 +222,8 @@
 // -------------------------
 .ads-230x140 {	
 	overflow: hidden;
-	margin-top: 10px;
-	padding-top: 15px;
+	margin-top: 20px;
+	padding-top: 20px;
 	border-top: 1px solid @grayLighter;
 
 	&:first-child {
@@ -203,8 +265,8 @@
 	.ads-thumb {
 		text-align: center;
 		background: @grayLighter;
-		min-height: 80px;
-		line-height: 80px;
+		min-height: 90px;
+		line-height: 90px;
 		display: block;
 		color: @gray !important;
 
@@ -303,6 +365,21 @@
 			.hentry  {
 				position: relative;
 			}
+			.entry-thumbnail {
+				position: relative;
+
+				.gradient-ie8 {
+					.ie8 & {
+						position: absolute;
+						bottom: 0;
+						width: 100%;
+						height: 60%;
+						display: block;
+						color: #fff;
+						filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-8 */
+					}
+				}
+			}
 
 			.entry-thumbnail {
 				position: relative;
@@ -333,12 +410,11 @@
 				width: 100%;
 				bottom: 0;
 				padding: 30px 20px 0;
-
 				.box-sizing(border-box);
 				
 			}
 
-			.entry-header-inner {
+			.entry-header-inner a {
 				.desktop & {
 					.opacity(70);
 					.transition(.2s);
@@ -350,7 +426,11 @@
 			}
 
 			.entry-meta {
-				color: @white;
+				color: #eee;
+
+				a {
+					color: @white;
+				}
 			}
 
 			.entry-title {
@@ -444,6 +524,7 @@
             line-height: 4px;
             width: 12px;
             height: 12px;
+            position: relative;
             .box-sizing(border-box);
 
             &.active a {
@@ -474,6 +555,10 @@
             width: 4px;
             height: 4px;
             border-radius: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -2px 0 0 -2px;
             .transition(.4s);
         }
 	}
@@ -618,7 +703,8 @@
 		margin: -30px 0 0;
 
 		li {
-			display: inline-block;
+			float: left;
+			display: block;
 		}
 
 		a {
@@ -865,26 +951,9 @@
 
 	// Widget Tab
 	// -------------------------
-	.tab-content {
+	.tab-pane {
 		position: relative;
 		overflow: hidden;
-
-		&:before,
-		&:after {
-			content: "";
-			width: 1px;
-			background: @grayLighter;
-			height: 100%;
-			position: absolute;
-		}
-
-		&:before {
-			left: 32.5%;
-		}
-
-		&:after {
-			left: 67.5%;
-		}
 
 		.widget-title {
 			display: none;
@@ -921,6 +990,29 @@
 
 		.entry-title {
 			font-size: 16px;
+		}
+	}
+
+	.tab-pane {
+		&.dw_focus_featured_posts,
+		&.dw_focus_popular_posts,
+		&.dw_focus_recents_posts {
+			&:before,
+			&:after {
+				content: "";
+				width: 1px;
+				background: @grayLighter;
+				height: 100%;
+				position: absolute;
+			}
+
+			&:before {
+				left: 32.5%;
+			}
+
+			&:after {
+				left: 67.5%;
+			}
 		}
 	}
 }
@@ -982,26 +1074,26 @@
 			padding-top: 0;
 		}
 
-		.entry-thumbnail {
-			float: left;
-			margin-top: 5px;
-		}
+		// .entry-thumbnail {
+		// 	float: left;
+		// 	margin-top: 5px;
+		// }
 
-		img {
-			width: 60px;
-		}
+		// img {
+		// 	width: 60px;
+		// }
 
-		.has-thumbnail {
-			.entry-title,
-			.entry-meta {
-				margin-left: 80px;
-			}
-		}
+		// .has-thumbnail {
+		// 	.entry-title,
+		// 	.entry-meta {
+		// 		margin-left: 80px;
+		// 	}
+		// }
 
-		.entry-title {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
+		// .entry-title {
+		// 	margin-top: 0;
+		// 	margin-bottom: 0;
+		// }
 	}
 
 	// Widget Accordion
@@ -1042,59 +1134,79 @@
 				.opacity(100);
 			}
 		}
+
+		.hentry {
+			border-top: 1px solid @grayLighter;
+			margin-top: 5px;
+			padding-top: 15px;
+			overflow: hidden;
+		}
+
+		.widget-title + .hentry,
+		.hentry:first-child {
+			border-top: none;
+			margin-top: 0;
+			padding-top: 0;
+		}
 	}
 
 
 	// Widget Latest Twitter
 	// -------------------------
-	
-	.latest-twitte:last-child {
-		margin-bottom: 30px;
-	} 
 
-	.dw-twitter-inner {
-		border: 1px solid @grayLighter;
-		padding: 15px 20px;
-		margin-bottom: 50px;
-		position: relative;
-		.arrowBottom2(#bbb,@white);
+	// common style
+	.tweet-item {
+		border-top: 1px solid #eee;
+		padding-top: 15px;
+		margin-top: 15px; 
 
-		.user {
-			position: absolute;
-			bottom: -30px;
-			right: 0;
+		&:first-child {
+			margin-top: 0;
+			padding-top: 0;
+			border-top: none; 
 		}
-
-		.tweet-item {
-			border-top: 1px solid #eee;
-			padding-top: 15px;
-			margin-top: 15px;
-
-			&:first-child {
-				margin-top: 0;
-				padding-top: 0;
-				border-top: none;
-			}
+	}
+ 
+	.twitter-user {
+		img {
+			margin-top: -2px;
+			.border-radius(500px);
 		}
+	}
 
+	.twitter-follow-button {
+		margin-top: 10px;
+	}
+
+	.dw_twitter {
 		.time a {
 			display: block;
 			font-size: 11px;
 			margin: 10px 0 0;
-			color: #999;
-		}
-
-		.twitter-follow-button {
-			position: absolute;
-			bottom: -55px;
-			right: 0;
-		}
-
-		&.has-follow-button {
-			margin-bottom: 75px;
+			color: @grayLight;
 		}
 	}
 
+	// '@, # cases'
+	.tweet-item {
+		.twitter-user {
+			margin-bottom: 10px;
+		}
+	}
+
+	// 'from' cases
+	.tweets {
+		border: 1px solid @grayLighter;
+		padding: 15px 20px;
+		position: relative;
+		// .arrowBottom2(#bbb,@white);  
+	}
+
+	.dw-twitter-inner > .twitter-user {
+		margin-top: 10px;
+		text-align: right;
+	} 
+ 
 	// Widget Latest News
 	// -------------------------
 
@@ -1159,50 +1271,50 @@
 			}
 		}
 	}
+}
 
-	#dw_recentcomments {
-		margin: 0;
-		list-style: none;
+#dw_recentcomments {
+	margin: 0 !important;
+	list-style: none !important;
 
-		li {
-			border-top: 1px solid @grayLighter;
-			margin: 19px 0 0;
-			padding: 20px 0 0;
-			.clearfix();
+	li {
+		border-top: 1px solid @grayLighter;
+		margin: 19px 0 0 !important;
+		padding: 20px 0 0 !important;
+		.clearfix();
 
-			&:first-child {
-				margin: 0;
-				padding: 0;
-				border: none;
-			}
+		&:first-child {
+			margin: 0 !important;
+			padding: 0 !important;
+			border: none;
 		}
+	}
 
-		.avatar {
-			float: left;
-			margin: 5px 20px 0 0;
-			width: 60px;
-		}
+	.avatar {
+		float: left;
+		margin: 5px 20px 0 0;
+		width: 60px;
+	}
 
-		.comment-info {
-			margin-left: 80px;
-			font-size: 14px;
-			color: @grayLight;
-		}
+	.comment-info {
+		margin-left: 80px;
+		font-size: 14px;
+		color: @grayLight;
+	}
 
-		.comment-title,
-		.comment-author {	
-			font-family: 'Bitter',serif;
-		}
+	.comment-title,
+	.comment-author {	
+		font-family: 'Bitter',serif;
+	}
 
-		.comment-date,
-		.comment-author {
-			display: block;
-			color: @grayLight;
-		}
-		.comment-date {
-			font-size: 11px;
-			text-transform: uppercase;
-		}
+	.comment-date,
+	.comment-author {
+		display: block;
+		color: @grayLight;
+	}
+	.comment-date {
+		font-size: 11px;
+		text-transform: uppercase;
 	}
 }
 
@@ -1292,26 +1404,6 @@
 			border-bottom: 1px solid @grayLighter;
 		}
 
-		.item {
-			background: url(../img/dot-ddd.gif) repeat-y 249px 0;
-			text-align: center;
-
-			&:after,
-			&:before {
-				content: '';
-				position: absolute;
-				width: 1px;
-				height: 100%;
-				background: @grayLighter;
-				left: 520px;
-				top: 0;
-			}
-
-			&:after {
-				left: 789px;
-			}
-		}
-
 		.carousel-control {
 			z-index: 1;
 		    top: auto;
@@ -1357,6 +1449,7 @@
 				border-radius: 20px;
 				line-height: 2px;
 				overflow: hidden;
+				position: relative;
 				.box-sizing(border-box); 
 
 				.chrome &,
@@ -1374,7 +1467,11 @@
 					width: 4px;
 					height: 4px;
 					border-radius: 20px;
-					position: relative;
+					position: absolute;
+		            top: 50%;
+		            left: 50%;
+		            margin: -2px 0 0 -2px;
+
 				}
 
 				&:hover a {
@@ -1391,42 +1488,34 @@
 
 		.hentry {
 			padding-bottom: 30px;
-			position: relative;
+
+			&:before {
+				content: '';
+				position: absolute;
+				width: 1px;
+				height: 100%;
+				background: @grayLighter;
+				margin-left: -20px;
+			}
+
+			&:first-child:before {
+				display: none;
+			}
 
 			.entry-thumbnail {
 				position: relative;
 			}
 
 			.entry-title {
+				text-align: center;
 				a {
 					display: block;
 				}
 			}
 
 			.entry-meta {
+				text-align: center;
 				font-size: 11px;
-			}
-
-			&.format-video .icon-post-format,
-			&.format-audio .icon-post-format {
-				width: 50px;
-				height: 50px;
-				top: 50%;
-				left: 50%;
-				margin-left: -25px;
-				margin-top: -25px;
-				.opacity(10);
-				.transition(opacity 0.5s);
-
-				&:before {
-					font-size: 28px;
-					line-height: 55px;
-				}
-			}
-
-			&:hover .icon-post-format {
-				.opacity(100);
-				.transition(opacity 0.5s);
 			}
 		}
 	}
@@ -1436,12 +1525,29 @@
 // Sidebar Footer
 // -------------------------
 #sidebar-footer {
-	background: url(../img/sl-6-130-ddd.gif) repeat-y center;
 	margin: 20px -20px;
 	padding: 0 20px;
-
+	position: relative;
+ 
 	.widget {
 		padding: 0 0 20px;
+
+		&:before {
+			content: '';
+			width: 1px;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			background: @grayLighter;
+		}
+	}
+
+	.widget:first-child:before {
+		margin-left: -20px;
+	}
+
+	#sidebar-footer-1 .widget:first-child:before {
+		display: none;
 	}
 
 	.widget-title {

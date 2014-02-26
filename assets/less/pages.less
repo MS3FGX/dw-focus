@@ -121,7 +121,7 @@
 // -------------------------------------------------
 .home {
 	.site-content .content-inner {
-		.type-post {
+		.hentry {
 			margin: 20px 0 0;
 			padding: 0 0 20px;
 			border-bottom: 1px solid @grayLighter;
@@ -267,7 +267,7 @@
 	// post
 	// -------------------------
 	.content-inner {
-		.type-post {
+		.hentry {
 			margin: 20px 0 0;
 			padding: 0 0 20px;
 			border-bottom: 1px solid @grayLighter;
@@ -342,7 +342,7 @@
 
 .ie8.archive {
     .content-inner {
-        .type-post:first-child {
+        .hentry:first-child {
             .entry-thumbnail img {
                 width: 320px;
             }
@@ -384,7 +384,7 @@
             content: "";
         }
 
-        .type-post {
+        .hentry {
             width: 30%;
             padding-left: 5%;
             float: left;
@@ -451,7 +451,7 @@
 	// post
 	// -------------------------
 	.content-inner {
-		.type-post {
+		.hentry {
 			margin: 40px 0 0;
 			padding: 0 0 20px;
 			border-bottom: 1px solid @grayLighter;
@@ -568,13 +568,23 @@
 }
 
 //
+// Full width
+// -------------------------------------------------
+.page-template-template-full-width-php {
+	#main>.container>.row {
+		background: none;
+	}
+}
+
+
+//
 // Search
 // -------------------------------------------------
 .search {
 	// post
 	// -------------------------
 	.content-inner {
-		.type-post {
+		.hentry {
 			margin: 20px 0 0;
 			padding: 0 0 20px;
 			border-bottom: 1px solid @grayLighter;

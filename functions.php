@@ -1,13 +1,10 @@
 <?php
 /**
  * DW Focus functions and definitions
- *
- * @package DW Focus
- * @since DW Focus 1.0.2
  */
 
 /**
- * 	Define template path
+ *  Define template path
  */
 if( !defined('DW_TEMPLATE_PATH') ){
     define('DW_TEMPLATE_PATH', get_template_directory() .'/' );
@@ -41,7 +38,7 @@ add_filter( 'ot_theme_mode', '__return_true' );
  * @since DW Focus 1.0
  */
 if ( ! isset( $content_width ) )
-	$content_width = 640; /* pixels */
+    $content_width = 640; /* pixels */
 
 if ( ! function_exists( 'dw_focus_setup' ) ) :
 /**
@@ -55,30 +52,29 @@ if ( ! function_exists( 'dw_focus_setup' ) ) :
  */
 function dw_focus_setup() {
 
-	/**
-	 * Custom template tags for this theme.
-	 */
-	require( get_template_directory() . '/inc/template-tags.php' );
+    /**
+     * Custom template tags for this theme.
+     */
+    require( get_template_directory() . '/inc/template-tags.php' );
 
-	/**
-	 * Custom functions that act independently of the theme templates
-	 */
-	require( get_template_directory() . '/inc/extras.php' );
+    /**
+     * Custom functions that act independently of the theme templates
+     */
+    require( get_template_directory() . '/inc/extras.php' );
 
-	/**
-	 * 	Init widgets for theme
-	 */
-	require_once DW_TEMPLATE_PATH . 'inc/dw-focus-sidebar.php';
+    /**
+     *  Init widgets for theme
+     */
+    require_once DW_TEMPLATE_PATH . 'inc/dw-focus-sidebar.php';
     require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-dynamic-widget.php';
-	require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-categories.php';
-	require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-recent-posts.php';
-	require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-twitter.php';
-	require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-slider.php';
-	require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-carousel.php';
-	require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-tabs.php';
-	require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-accordion.php';
-	require_once DW_TEMPLATE_PATH.'inc/widgets/dw-focus-latest-headlines.php';
-	require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-latest-comments.php';
+    require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-categories.php';
+    require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-recent-posts.php';
+    require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-slider.php';
+    require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-carousel.php';
+    require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-tabs.php';
+    require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-accordion.php';
+    require_once DW_TEMPLATE_PATH.'inc/widgets/dw-focus-latest-headlines.php';
+    require_once DW_TEMPLATE_PATH . 'inc/widgets/dw-focus-latest-comments.php';
     
     //Include new meta field for category taxonomy
     require_once DW_TEMPLATE_PATH . 'inc/category-meta.php';
@@ -92,43 +88,43 @@ function dw_focus_setup() {
     require_once DW_TEMPLATE_PATH . 'inc/customization.php';
     require_once DW_TEMPLATE_PATH . 'inc/class-customize-control.php';
 
-	/**
-	 * Make theme available for translation
-	 * Translations can be filed in the /languages/ directory
-	 * If you're building a theme based on DW Focus, use a find and replace
-	 * to change 'dw_focus' to the name of your theme in all the template files
-	 */
-	load_theme_textdomain( 'dw_focus', get_template_directory() . '/languages' );
+    /**
+     * Make theme available for translation
+     * Translations can be filed in the /languages/ directory
+     * If you're building a theme based on DW Focus, use a find and replace
+     * to change 'dw_focus' to the name of your theme in all the template files
+     */
+    load_theme_textdomain( 'dw_focus', get_template_directory() . '/languages' );
 
-	/**
-	 * Add default posts and comments RSS feed links to head
-	 */
-	add_theme_support( 'automatic-feed-links' );
+    /**
+     * Add default posts and comments RSS feed links to head
+     */
+    add_theme_support( 'automatic-feed-links' );
 
-	/**
-	 * Enable support for Post Thumbnails
-	 */
-	add_theme_support( 'post-thumbnails' );
+    /**
+     * Enable support for Post Thumbnails
+     */
+    add_theme_support( 'post-thumbnails' );
 
-	// Add DW Focus's custom image sizes.
-	// Used for large feature (header) images.
-	add_image_size( 'large', 640 , 360 , true );
-	// Used for featured posts if a large-feature doesn't exist.
-	add_image_size( 'medium', 230, 130 ,true );
+    // Add DW Focus's custom image sizes.
+    // Used for large feature (header) images.
+    add_image_size( 'large', 640 , 360 , true );
+    // Used for featured posts if a large-feature doesn't exist.
+    add_image_size( 'medium', 230, 130 ,true );
 
-	add_image_size( 'thumbnail', 110, 110 ,true );
+    add_image_size( 'thumbnail', 110, 110 ,true );
 
-	/**
-	 * This theme uses wp_nav_menu() in one location.
-	 */
-	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'dw_focus' ),
-	) );
+    /**
+     * This theme uses wp_nav_menu() in one location.
+     */
+    register_nav_menus( array(
+        'primary' => __( 'Primary Menu', 'dw_focus' ),
+    ) );
 
-	/**
-	 * Add support for the Aside Post Formats
-	 */
-	add_theme_support( 'post-formats', array('audio', 'gallery' , 'video' ) );
+    /**
+     * Add support for the Aside Post Formats
+     */
+    add_theme_support( 'post-formats', array('audio', 'gallery' , 'video' ) );
 }
 endif; // dw_focus_setup
 add_action( 'after_setup_theme', 'dw_focus_setup' );
@@ -140,6 +136,7 @@ if( ! function_exists('dw_focus_scripts') ) {
     function dw_focus_scripts() {
         wp_enqueue_style( 'dw_focus_template', get_template_directory_uri().'/assets/css/template.css' );
         wp_enqueue_style( 'dw_focus_responsive', get_template_directory_uri().'/assets/css/responsive.css' );
+        wp_enqueue_style( 'dw_focus_template', get_template_directory_uri().'/assets/css/custom.css' );
 
         if( is_archive() ) {
             $style = '';
@@ -223,38 +220,38 @@ if( ! function_exists('dw_focus_pagenavi') ) {
      * @return void      
      */
     function dw_focus_pagenavi( $the_query = false, $type = false ){
-    	global $wp_query, $wp_rewrite;
+        global $wp_query, $wp_rewrite;
         
-    	$query = ($the_query) ? $the_query : $wp_query;
-    	$max = $query->max_num_pages;
-    	$current_page = max(1, get_query_var('paged')); 
-    	$big=999999999; 
+        $query = ($the_query) ? $the_query : $wp_query;
+        $max = $query->max_num_pages;
+        $current_page = max(1, get_query_var('paged')); 
+        $big=999999999; 
         if( ! $type ) {
             $type = dw_get_option('nav_type','number');
         }
-    	if ( $max > 1 ) { ?>
-    		
-    			<?php if( $type != 'number' && ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE 8.0') ===false || is_mobile() ) ): ?>
-    			 <div class="navigation">
-    				<div class="navigation-inner">
-    					<?php next_posts_link( __( 'See More', 'dw_focus' ) ); ?>
-    				</div>
-    			  </div>
-    			<?php else: 
-    				echo "<div class='pagination'>";
-    				echo paginate_links(array(  
-    			      'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),  
-    			      'format' => '?paged=%#%',
-    			      'current' => $current_page,  
-    			      'total' => $max, 
-    			      'type' => 'list',
-    			      'prev_text' => __('<i class="icon-chevron-left"></i>'),
-    			      'next_text' => __('<i class="icon-chevron-right"></i>'), 
-    			    ));  
-    			    echo "</div>";
-    			 endif; ?>
-    		
-    	<?php }
+        if ( $max > 1 ) { ?>
+            
+                <?php if( $type != 'number' && ( strpos($_SERVER['HTTP_USER_AGENT'],'MSIE 8.0') ===false || is_mobile() ) ): ?>
+                 <div class="navigation">
+                    <div class="navigation-inner">
+                        <?php next_posts_link( __( 'See More', 'dw_focus' ) ); ?>
+                    </div>
+                  </div>
+                <?php else: 
+                    echo "<div class='pagination'>";
+                    echo paginate_links(array(  
+                      'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),  
+                      'format' => '?paged=%#%',
+                      'current' => $current_page,  
+                      'total' => $max, 
+                      'type' => 'list',
+                      'prev_text' => __('<i class="icon-chevron-left"></i>'),
+                      'next_text' => __('<i class="icon-chevron-right"></i>'), 
+                    ));  
+                    echo "</div>";
+                 endif; ?>
+            
+        <?php }
     }
 }
 
@@ -267,8 +264,7 @@ if( ! function_exists('dw_focus_next_posts_link_attributes') ) {
     function dw_focus_next_posts_link_attributes() {
         return 'class="btn btn-large"';
     }
-    add_filter('next_posts_link_attributes', 
-                    'dw_focus_next_posts_link_attributes');
+    add_filter('next_posts_link_attributes', 'dw_focus_next_posts_link_attributes');
 }
 
 /**
@@ -277,10 +273,12 @@ if( ! function_exists('dw_focus_next_posts_link_attributes') ) {
  * @return string       Time in human time
  */
 
-//update time stamp 
 if( ! function_exists('dw_human_time_diff') ) {
     function dw_human_time_diff( $from, $format ){
-        $cmt_date = $from;
+        global $post;
+        if( $post ) {
+            $from = $post->post_date;
+        }
         $from = strtotime($from);
 
         if ( empty($to) )
@@ -316,8 +314,12 @@ if( ! function_exists('dw_human_time_diff') ) {
         }
         return $since . ' ago';
     }
-    add_filter( 'get_the_date', 'dw_human_time_diff', 10, 2);
-    add_filter( 'get_comment_time', 'dw_human_time_diff', 10, 2);
+}
+
+if( ! function_exists('dw_human_time') ) {
+    function dw_human_time(){
+        return esc_html( dw_human_time_diff(get_the_time('c'), current_time('timestamp')) );
+    }
 }
 
 
@@ -341,62 +343,64 @@ if( ! function_exists('dw_the_modified_time') ) {
 }
 
 if( ! function_exists('dw_breadcrumb') ) { 
-	function dw_breadcrumb(){
-		global $post;
-	    echo '<ul class="breadcrumbs">';
-		if (!is_front_page()) {
-			echo '<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="';
-			echo home_url();
-			echo '"><span itemprop="title">';
-			bloginfo('name');
-			echo "</span></a> </li> ";
-			if ( is_category() || is_single() ) { 
-				if ( single_cat_title("", false)!='') echo '<li>'.single_cat_title("", false).'</li>';
-				
-				if ( is_single() ) {
-					$cat = get_the_category();
+    function dw_breadcrumb(){
+        global $post;
+        wp_reset_query();
+        echo '<ul class="breadcrumbs">';
+        if (!is_front_page()) {
+            echo '<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="';
+            echo home_url();
+            echo '"><span itemprop="title">';
+            bloginfo('name');
+            echo "</span></a> </li> ";
+            if ( is_category() || is_single() ) { 
+                if ( single_cat_title("", false)!='') echo '<li>'.single_cat_title("", false).'</li>';
+                
+                if ( is_single() ) {
+                    $cat = get_the_category();
                     if( !empty( $cat ) ) {
                         echo '<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="'.get_category_link($cat[0]->term_id).'"><span itemprop="title">'.$cat[0]->cat_name.'</span></a></li>';
                         echo "<li> ";
                         the_title();
                         echo "</li>";
                     }
-				}
-			} elseif ( is_page() && $post->post_parent ) { 
+                }
+            } elseif ( is_page() && $post->post_parent ) { 
 
-				$home = get_page_by_title('home');
-				for ($i = count($post->ancestors)-1; $i >= 0; $i--) {
-					if (($home->ID) != ($post->ancestors[$i])) {
-						echo '<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="';
-						echo get_permalink($post->ancestors[$i]); 
-						echo '"><span itemprop="title">';
-						echo get_the_title($post->ancestors[$i]);
-						echo "</span></a> </li> ";
-					}
-				}
-				echo the_title();
-			} elseif (is_page()) { 
-				echo "<li>".get_the_title()."</li>" ;
-			} elseif (is_404()) {
-				echo "<li>404</li>";
-			}
-			elseif(is_search()){
-				echo "<li>Search</li>";
-			}
-			elseif(is_author()){
-				global $wp_query;
-				$author = $wp_query->get_queried_object();
-				echo "<li>".$author->user_nicename."</li>";
-			}
-		} else {
-			echo '<li>';
-			bloginfo('name');
-			echo '</li>';
-		}
-		echo '</ul>';
-	}
+                $home = get_page_by_title('home');
+                for ($i = count($post->ancestors)-1; $i >= 0; $i--) {
+                    if (($home->ID) != ($post->ancestors[$i])) {
+                        echo '<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="';
+                        echo get_permalink($post->ancestors[$i]); 
+                        echo '"><span itemprop="title">';
+                        echo get_the_title($post->ancestors[$i]);
+                        echo "</span></a> </li> ";
+                    }
+                }
+                echo the_title();
+            } elseif (is_page()) { 
+                echo "<li>".get_the_title()."</li>" ;
+            } elseif (is_404()) {
+                echo "<li>404</li>";
+            }
+            elseif(is_search()){
+                echo "<li>Search</li>";
+            }
+            elseif(is_author()){
+                global $wp_query;
+                $author = $wp_query->get_queried_object();
+                echo "<li>".$author->user_nicename."</li>";
+            }
+        } else {
+            echo '<li>';
+            bloginfo('name');
+            echo '</li>';
+        }
+        echo '</ul>';
+    }
 }
 
+// FORK EDIT START
 if( ! function_exists('dw_focus_post_actions') ) :
 	/**
 	 * Display Social Share, Print, Sent Button
@@ -411,9 +415,7 @@ if( ! function_exists('dw_focus_post_actions') ) :
         $twitter_count = dw_get_twitter_count( $url );
         $facebook_count = dw_get_facebook_count( $url );
         $linkedin_count = dw_get_linkedin_count( $url );
-
         
-
     ?>		
 		<div class="entry-action">
 		<!-- Show author name/avatar -->
@@ -455,32 +457,26 @@ if( ! function_exists('dw_focus_post_actions') ) :
 		</div>
 	<?php }
 endif;
-
+// FORK EDIT END
 
 if( ! function_exists('dw_focus_post_format_icons') ) :
-	/**
-	 * Display Post Format icon
-	 */
-	function dw_focus_post_format_icons($widget = false) {
-		if( has_post_format( 'video' ) ) {
-			$class = 'icon-facetime-video';
-		} elseif( has_post_format( 'audio' ) ) {
-			$class = 'icon-music';
-		} elseif( has_post_format( 'gallery' ) ) {
-			$class = 'icon-picture';
-		} else {
-			$class = 'icon-file-alt';
-		}
-		if( $widget ) {
+    /**
+     * Display Post Format icon
+     */
+    function dw_focus_post_format_icons($widget = false) {
+        if( has_post_format( 'video' ) ) {
+            $class = 'icon-play';
+        } elseif( has_post_format( 'audio' ) ) {
+            $class = 'icon-music';
+        } elseif( has_post_format( 'gallery' ) ) {
+            $class = 'icon-picture';
+        } else {
+            $class = 'icon-file-alt';
+        }
 
-			if( dw_focus_sidebar_has_widget( 'dw_focus_bottom', $widget->id ) ) { 
-				$class .= ' icon-play';
-			}
-		}
-
-		$icon = '<i class="icon-post-format '.$class.'"></i>';
-		return $icon;
-	}
+        $icon = '<i class="icon-post-format '.$class.'"></i>';
+        return $icon;
+    }
 endif;
 
 if( ! function_exists('dw_focus_post_views') ) { 
@@ -501,35 +497,35 @@ if( ! function_exists('dw_focus_post_views') ) {
                 $thumb = wp_get_attachment_thumb_url( $thumb_id );
                 echo '<meta property="og:image" content="'.$thumb.'" />';   
             }
-            echo '<meta property="og:description" content="'.get_the_excerpt().'"/>';
+            echo '<meta property="og:description" content="'. esc_html( get_the_excerpt() ) .'"/>';
         }
     }
     add_action('wp_head', 'dw_focus_post_views');
 }
 
 /**
- *	Improve Search Results Page
+ *  Improve Search Results Page
  */
 
 // Highlight search term
 function search_excerpt_highlight() {
-	$excerpt = get_the_excerpt();
-	$keys = implode('|', explode(' ', get_search_query()));
-	$excerpt = preg_replace('/(' . $keys .')/iu', '<mark>\0</mark>', $excerpt);
-	echo '<p>' . $excerpt . '</p>';
+    $excerpt = get_the_excerpt();
+    $keys = implode('|', explode(' ', get_search_query()));
+    $excerpt = preg_replace('/(' . $keys .')/iu', '<mark>\0</mark>', $excerpt);
+    echo '<p>' . $excerpt . '</p>';
 }
 
 function search_title_highlight() {
-	$title = get_the_title();
-	$keys = implode('|', explode(' ', get_search_query()));
-	$title = preg_replace('/(' . $keys .')/iu', '<mark>\0</mark>', $title);
-	echo $title;
+    $title = get_the_title();
+    $keys = implode('|', explode(' ', get_search_query()));
+    $title = preg_replace('/(' . $keys .')/iu', '<mark>\0</mark>', $title);
+    echo $title;
 }
 
 // Exclude Pages from Search
 function dw_exclude_pages_from_search() {
-	global $wp_post_types;
-	$wp_post_types['page']->exclude_from_search = true;
+    global $wp_post_types;
+    $wp_post_types['page']->exclude_from_search = true;
 }
 add_action('init', 'dw_exclude_pages_from_search');
 
@@ -541,8 +537,6 @@ if( ! function_exists('dw_gallery_shortcode') ) {
      *
      * This implements the functionality of the Gallery Shortcode for displaying
      * WordPress images on a post.
-     *
-     * @since 1.0.0
      *
      * @param array $attr Attributes of the shortcode.
      * @return string HTML content to display gallery.
@@ -660,9 +654,8 @@ if( ! function_exists('dw_gallery_shortcode') ) {
 
 if( ! function_exists('dw_focus_add_layout_class') ) { 
     function dw_focus_add_layout_class($classes){
-    	if( ! is_active_sidebar( 'dw_focus_home' ) 
-                && is_page_template( 'Blog' ) ) {
-        	$classes[] = 'template-blog';
+        if( ! is_active_sidebar( 'dw_focus_home' ) && is_page_template( 'Blog' ) ) {
+            $classes[] = 'template-blog';
         }
         $classes[] = dw_get_option('dw_layout');
 
@@ -695,30 +688,30 @@ if( ! function_exists('dw_focus_sidebar_has_widget') ) {
 
 // Create new size thumbnail
 if ( function_exists( 'add_image_size' ) ) { 
-	add_image_size( 'slider-thumb', 520, 400, true ); //(cropped)
+    add_image_size( 'slider-thumb', 520, 400, true ); //(cropped)
 }
 
 
 // Add parent class for menu
 if( ! function_exists('dw_focus_add_menu_parent_class') ) {
-	add_filter( 'wp_nav_menu_objects', 'dw_focus_add_menu_parent_class' );
-	function dw_focus_add_menu_parent_class( $items ) {
-		
-		$parents = array();
-		foreach ( $items as $item ) {
-			if ( $item->menu_item_parent && $item->menu_item_parent > 0 ) {
-				$parents[] = $item->menu_item_parent;
-			}
-		}
-		
-		foreach ( $items as $item ) {
-			if ( in_array( $item->ID, $parents ) ) {
-				$item->classes[] = 'menu-parent-item'; 
-			}
-		}
-		
-		return $items;    
-	}
+    add_filter( 'wp_nav_menu_objects', 'dw_focus_add_menu_parent_class' );
+    function dw_focus_add_menu_parent_class( $items ) {
+        
+        $parents = array();
+        foreach ( $items as $item ) {
+            if ( $item->menu_item_parent && $item->menu_item_parent > 0 ) {
+                $parents[] = $item->menu_item_parent;
+            }
+        }
+        
+        foreach ( $items as $item ) {
+            if ( in_array( $item->ID, $parents ) ) {
+                $item->classes[] = 'menu-parent-item'; 
+            }
+        }
+        
+        return $items;    
+    }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -727,11 +720,12 @@ if( ! function_exists('dw_focus_add_menu_parent_class') ) {
 if( ! function_exists('dw_script_header') ) {
     //Apply logo style
     function dw_script_header() {
-        $logo_custom_image = dw_get_option('dw_logo_image', get_template_directory_uri().'/assets/img/logo.png');
-        $dw_logo_small_image = dw_get_option( 'dw_small_logo_image', $logo_custom_image );
+        $logo_custom_image = dw_get_option('dw_logo_image', '');
+        $dw_logo_small_image = dw_get_option( 'dw_small_logo_image', '' );
+        $dw_custom_color = dw_get_option('dw_custom_color','');
         echo dw_get_option('dw_header_script');
     ?>
-    <style type="text/css">       
+   <style type="text/css">       
 	/* Default image, safe for low-res desktop */
 	.site-header #branding a {
             display: block;
@@ -756,6 +750,49 @@ if( ! function_exists('dw_script_header') ) {
                 background-image: url(<?php echo $dw_logo_small_image; ?>);
             }
         }
+
+        <?php if( ! empty( $dw_custom_color ) )  : ?>
+        a:hover,
+        .navbar .nav .current_page_item > a, 
+        .navbar .nav .current-menu-item > a, 
+        .navbar .nav .current-post-ancestor > a, 
+        .navbar .nav .current-menu-parent > a, 
+        .navbar .nav .current-menu-ancestor > a,
+
+        .navbar .nav li a:hover, 
+        .navbar .nav li a:active, 
+        .navbar .nav li a:focus,
+
+        .archive .content-inner .entry-meta a:hover,
+
+        .desktop .top-news .dropdown-menu a:hover, 
+        .desktop .top-news .dropdown-menu a:active, 
+        .desktop .top-news .dropdown-menu a:focus {
+            color: <?php echo $dw_custom_color; ?>;
+        }
+
+        .desktop .top-news .entry-meta,
+        .news-slider .carousel .carousel-inner .entry-category,
+        .nav-tabs>.active>a, .nav-tabs>.active>a:hover,
+        .single .site-content>.hentry .post-categories li {
+            background: <?php echo $dw_custom_color; ?> !important   ;
+        }
+
+        .news-slider .carousel-list .other-entry li.active {
+            border-left-color: <?php echo $dw_custom_color; ?>;
+        }
+
+        .nav-tabs>.active>a:before, .nav-tabs>.active>a:hover:before {
+            border-top-color: <?php echo $dw_custom_color; ?>;
+        }
+        
+        .archive .post-layout a.active,
+        .pagination ul>li .current,
+        .btn-primary:hover {
+            background: <?php echo $dw_custom_color; ?>;
+            border-color: <?php echo $dw_custom_color; ?>;
+        }
+        <?php endif; ?>
     </style>
     <?php 
     }
@@ -771,18 +808,30 @@ if( ! function_exists('dw_script_footer') ){
 }
 
 /**
+ * Favion
+ */
+if( ! function_exists('dw_favion') ){
+    function dw_favion() {
+        $default = get_template_directory_uri().'/assets/img/favicon.ico';
+        $link = dw_get_option('dw_favicon', $default);
+        echo '<link rel="shortcut icon" href="'.$link.'">';
+    }
+    add_action( 'wp_head', 'dw_favion' );
+}
+
+/**
  * Get active state for category listing
  */
 function dw_active( $selected, $current = true, $echo = true ){
-	if ( (string) $selected === (string) $current )
-		$result = "active";
-	else
-		$result = '';
+    if ( (string) $selected === (string) $current )
+        $result = "active";
+    else
+        $result = '';
 
-	if ( $echo )
-		echo $result;
+    if ( $echo )
+        echo $result;
 
-	return $result;
+    return $result;
 }
 
 if( ! function_exists('dw_cat_filter') ) {
@@ -799,6 +848,18 @@ if( ! function_exists('dw_cat_filter') ) {
     }
     add_filter('cat_display_filter', 'dw_cat_filter');
 }
+
+if ( ! function_exists('dw_top_15_hide' ) ) {
+    function dw_top_15_hide($classes) {
+        $dw_menu_post = dw_get_option('dw_menu_display_type');
+        if ( $dw_menu_post == 'hide' ) {
+            $classes[] = 'dw_top_15_hide';
+        }
+        return $classes;
+    }
+    add_filter('body_class','dw_top_15_hide');
+}
+
 if( ! function_exists('dw_top15') ) {
     /**
      * Get latest news of today or numbers of recent posts for megamenu if dont have any post on today
@@ -899,37 +960,6 @@ function dw_add_class_for_print($classes) {
 }
 add_filter('post_class', 'dw_add_class_for_print');
 
-function dw_get_twitter_count($url){
-    $twittercount = json_decode( dw_file_get_content( 'http://urls.api.twitter.com/1/urls/count.json?url='.$url ) );
-    return isset($twittercount->count) ? $twittercount->count : 0;
-}
-function dw_get_facebook_count($url){
-    $facebookcount = json_decode( dw_file_get_content( 'http://graph.facebook.com/'.$url ) );
-    return isset($facebookcount->shares) ? $facebookcount->shares : 0;
-}
-function dw_get_linkedin_count($url){
-    $templinkedin = dw_file_get_content( 'http://www.linkedin.com/countserv/count/share?url='.$url );
-    $templinkedin = explode('(',$templinkedin);
-    $templinkedin = explode(',',$templinkedin[1]);
-    $templinkedin = explode(':',$templinkedin[0]);
-    $linkedincount = $templinkedin[1];
-    return isset($linkedincount) ? $linkedincount : 0;
-}
-// Added as requested in the comments
-function dw_get_pinterest_count($url){
-    $pincount = json_decode( dw_file_get_content( 'http://api.pinterest.com/v1/urls/count.json?callback=receiveCount&url='.$url ) );
-    return $pincount->count;
-}
-
-function dw_file_get_content( $url ){
-    $curl_handle=curl_init();
-    curl_setopt($curl_handle, CURLOPT_URL,$url);
-    curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
-    curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-    $result = curl_exec($curl_handle);
-    curl_close($curl_handle);
-    return $result;
-}
 
 function dw_exceprt_more( $excerpt ){
     return '<a href="'.get_permalink().'" title="'.__( 'Read more', 'dw_focus' ).'" >...</a>';
@@ -942,11 +972,116 @@ if( ! function_exists('dw_get_option') ) {
         $options = get_option( 'option_tree' );
         
         /* look for the saved value */
-        if ( isset( $options[$option_id] ) ) {
+        if ( isset( $options[$option_id] ) && ! empty( $options[$option_id] ) ) {
           return $options[$option_id];
         }
         return $default;    
     }
 }
 
-?>
+if( ! function_exists('dw_get_twitter_count') ) {
+    function dw_get_twitter_count($url){
+        $twittercount = json_decode( dw_file_get_content( 'http://urls.api.twitter.com/1/urls/count.json?url='.$url ) );
+        return isset($twittercount->count) ? $twittercount->count : 0;
+    }
+}
+
+if( ! function_exists('dw_get_facebook_count') ) {
+    function dw_get_facebook_count($url){
+        $facebookcount = json_decode( dw_file_get_content( 'http://graph.facebook.com/'.$url ) );
+        return isset($facebookcount->shares) ? $facebookcount->shares : 0;
+    }
+}
+
+if( ! function_exists('dw_get_linkedin_count') ) {
+    function dw_get_linkedin_count($url){
+        $templinkedin = dw_file_get_content( 'http://www.linkedin.com/countserv/count/share?url='.$url );
+        $templinkedin = explode('(',$templinkedin);
+        $templinkedin = explode(',',$templinkedin[1]);
+        $templinkedin = explode(':',$templinkedin[0]);
+        $linkedincount = $templinkedin[1];
+        return isset($linkedincount) ? $linkedincount : 0;
+    }
+}
+
+if( ! function_exists('dw_get_pinterest_count') ) {
+    function dw_get_pinterest_count($url){
+        $pincount = json_decode( dw_file_get_content( 'http://api.pinterest.com/v1/urls/count.json?callback=receiveCount&url='.$url ) );
+        return $pincount->count;
+    }
+}
+
+
+if( ! function_exists('dw_get_plusones_share_count') ) {
+    function dw_get_plusones_share_count($url)  {
+        $args = array(
+                'method' => 'POST',
+                'headers' => array(
+                    // setup content type to JSON 
+                    'Content-Type' => 'application/json'
+                ),
+                // setup POST options to Google API
+                'body' => json_encode(array(
+                    'method' => 'pos.plusones.get',
+                    'id' => 'p',
+                    'method' => 'pos.plusones.get',
+                    'jsonrpc' => '2.0',
+                    'key' => 'p',
+                    'apiVersion' => 'v1',
+                    'params' => array(
+                        'nolog'=>true,
+                        'id'=> $url,
+                        'source'=>'widget',
+                        'userId'=>'@viewer',
+                        'groupId'=>'@self'
+                    ) 
+                 )),
+                 // disable checking SSL sertificates               
+                'sslverify'=>false
+            );
+         
+        // retrieves JSON with HTTP POST method for current URL  
+        $json_string = wp_remote_post("https://clients6.google.com/rpc", $args);
+         
+        if (is_wp_error($json_string)){
+            // return zero if response is error                             
+            return "0";             
+        } else {        
+            $json = json_decode($json_string['body'], true);                    
+            // return count of Google +1 for requsted URL
+            return intval( $json['result']['metadata']['globalCounts']['count'] ); 
+        }
+    }
+}
+
+if( ! function_exists('dw_file_get_content') ) {
+    function dw_file_get_content( $url ){
+        $content = wp_remote_get( $url );
+        return wp_remote_retrieve_body( $content );
+    }
+}
+
+// load style for dw qa plugin
+if( !function_exists('dwqa_focus_scripts') ){
+    function dwqa_focus_scripts(){
+        wp_enqueue_style( 'dw-focus-qa', get_stylesheet_directory_uri() . '/dwqa-templates/style.css' );
+    }
+    add_action( 'wp_enqueue_scripts', 'dwqa_focus_scripts' );
+}
+
+// TGM plugin activation
+require_once get_template_directory() . '/inc/class-tgm-plugin-activation.php';
+function alx_plugins() {
+    $plugins = array(
+        array(
+            'name'              => 'DW Question & Answer',
+            'slug'              => 'dw-question-answer',
+        ),
+        array(
+            'name'              => 'DW Twitter',
+            'slug'              => 'dw-twitter',
+        ),
+    );  
+    tgmpa( $plugins );
+}
+add_action( 'tgmpa_register', 'alx_plugins' );

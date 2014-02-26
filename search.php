@@ -1,9 +1,6 @@
 <?php
 /**
  * The template for displaying Search Results pages.
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 
 get_header(); ?>

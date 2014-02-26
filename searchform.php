@@ -1,9 +1,6 @@
 <?php
 /**
  * The template for displaying search forms in dw focus
- *
- * @package DW Focus
- * @since DW Focus 1.0
  */
 ?>
 	<form method="get" name="searchForm" class="searchForm" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
