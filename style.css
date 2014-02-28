@@ -39,7 +39,7 @@ width: 390px;
 height: 100px;
 }
 
-/* Enables 3 banners at 230 x 100 each */
+/* Enables 3 banners at ~200 x 100 each */
 /* Enlarge banner area */
 .span7
 {
@@ -48,7 +48,12 @@ margin-left: 46px;
 }
 
 /* Shrink widget margins */
-#header .widget {margin-left: 16px;}
+#header .widget
+{
+margin-left: 16px;
+float: left;
+width: 217px;
+}
 
 #branding {width: 390px;}
 
